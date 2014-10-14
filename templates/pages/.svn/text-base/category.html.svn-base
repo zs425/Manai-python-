@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% load mezzanine_tags shop_tags pages_tags %}
+{% block canonical %}
+  {% if current_page == "1" %}
+  <link rel="canonical" href="http://manai.co.uk{{ page.category.get_absolute_url }}"/>
+  {% endif %}
+{% endblock %}
+
+{% block extra_head %}
+<script src="{{ STATIC_URL }}js/tinybox.js"></script>
+<script>
+  $(document).ready(function(){
+    $(".add-cart a.button").click(function(){
+      var pid = $(this).data("pid");
+      var slug = $(this).data("slug");
+      $.ajax({
+        type: "POST",
+        url: "/add_to_cart/",
+        data: $(this).parent().serialize() + "&id=" + pid + "&shop_slug={{ shop_slug }}&slug=" + slug + "&csrfmiddlewaretoken=" + $("input[name=csrfmiddlewaretoken]").val(),
+        success: function(data){
+          if(data=='Discount error'){
+            TINY.box.show({html:'<strong style="font-size:1.2em;">Sorry, you cannot buy more than one of this product at a time.</strong>',autohide:3,width:240, height:90});
+          }
+          else{
+            html =  '<div id="mini-cart" class="whitebox">' +
+                    '<p class="title"><strong><em>Your Basket</em></strong></p>' +
+                    '<a class="edit-cart" href="{% url basket %}"><em>View Basket</em></a>' +
+                    '<div>Total: &pound;' + data + '</strong></div><br>' +
+                    '</div>';
+            $("#mini-cart-container").html(html);
+            TINY.box.show({html:'<strong style="font-size:1.2em;">The item was added to your basket</strong>',autohide:3,width:240, height:70});
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          TINY.box.show({html:'<strong style="font-size:1.2em;">There was an error. The item was not added to your basket.</strong>',autohide:3,width:240, height:90});
+        }
+      }); //ajax
+      return false;
+    }); // click
+  }); // ready
+</script>
+{% endblock extra_head %}
+
+
+{% block body_id %}category{% endblock %}
+
+{% block topcontent %}
+{% page_menu "pages/menus/shop-categories.html" %}
+{% endblock %}
+
+{% block meta_title %}{{ page.category.title }}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.category.description }}
+{% endmetablock %}{% endblock %}
+
+{% block maincontent %}
+<section class="wrap notoppadding">
+
+{% page_menu "pages/menus/breadcrumb.html" %}
+
+{% block main %}{{ block.super }}
+
+<div class="third">
+  <div class="whitebox">
+    {% if page.category.content %}
+    {% editable page.category.content %}
+    <div class="editable">{{ page.category.content|safe }}</div>
+    {% endeditable %}
+    {% else %}
+    <h1>{{ page.category.title }}</h1>
+    {% endif %}
+
+    {% if not wholesale_logged_in and shop_slug == 'wholesale-shop' %}
+    {% include "shop/includes/wholesale_call.html" %}
+    {% endif %}
+
+    {% if subcategories %}
+    <ul>
+    {% for category in subcategories %}
+      {% if category.title != 'Base Kits' %}
+      <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    {% else %}
+    <ul>
+    {% for category in siblingcategories %}
+      {% if category.title != 'Base Kits' %}
+        {% if page.category.slug == category.slug %}
+        <li><strong>&raquo; {{ category.title }}</strong></li>
+        {% else %}
+        <li><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    </ul>
+    {% endif %}
+  </div><!-- whitebox -->
+</div><!-- third -->
+
+
+{% if products.paginator.count != 0 %}
+
+<div class="two-thirds">
+
+  <form class="product-sorting">
+      <select onchange="location.href = this[this.selectedIndex].value;">
+      {% for name, option in settings.SHOP_PRODUCT_SORT_OPTIONS %}
+      <option{% if option == products.sort_by %} selected{% endif %}
+          value="{{ category.get_absolute_url }}?sort={{ option }}{{ querystring }}">
+          Sort by {{ name|lower }}
+      </option>
+      {% endfor %}
+      </select>
+  </form>
+  
+  <form action="{% url search %}" class="search-form">
+    <input class="search-query" placeholder="Search" type="text" name="q" value="{{ request.REQUEST.q }}">
+    <input type="submit" value="Go">
+  </form>
+
+  <ul class="thumbnails">
+  {% for product in products.object_list %}
+  
+  <li class="{% cycle 'first' '' '' '' %}">
+      <a href="/{{ shop_slug }}/product/{{ product.slug }}/" class="thumbnail">
+          {% if product.image %}
+          <img src="{{ MEDIA_URL }}{% thumbnail product.image 154 154 %}" alt="{{ product.title }}">
+          {% else %}
+          <div class="placeholder"></div>
+          {% endif %}
+          <h3>{{ product }}</h3>
+          {% if product.has_price %}
+            {% if wholesale_logged_in or shop_slug == 'retail-shop' %}
+              {% if product.on_sale %}
+              <span class="old-price">{{ product.unit_price|currency }}</span>
+              On sale:
+              {% endif %}
+              {{ product.price|currency }}
+            {% endif %}
+            <br>
+          {% else %}
+          Coming soon
+          {% endif %}
+      </a>
+      {% if wholesale_logged_in or shop_slug == 'retail-shop' %}
+      <form class="add-cart">{% csrf_token %}
+
+          <!--<input type="hidden" name="referrer" value="http://127.0.0.1:8000/retail-shop/body-art-jewellery-glitter-kits/">-->
+          <div style='display:none'>
+            <input type='hidden' name='csrfmiddlewaretoken' value='L499ZZJjGAtMSafG3s8WFaV2dNlVJIwA' />
+            {% for v in product.variations.all %}
+              {% if forloop.first %}
+              <input type="hidden" name="sku" value="{{ v.sku }}" />
+              {% endif %}
+            {% endfor %}
+          </div>
+
+          <input type="text" name="quantity" maxlength="4" value="1" id="id_quantity" /><br>
+
+          <a class="button" data-pid="{{ product.id }}" data-slug="{{ product.slug }}">
+            <span>Add to basket</span>
+          </a>
+          <!--<input type="submit" class="btn btn-primary btn-large" name="add_cart" value="Add to basket">-->
+          <!--<input type="submit" class="btn btn-large" name="add_wishlist" value="Save for later">-->
+      </form>
+      {% endif %}
+  </li>
+  {% endfor %}
+  </ul>
+
+  {% pagination_for products %}
+
+  {% endif %}
+
+</div><!-- two-thirds -->
+
+{% endblock %}<!-- main -->
+
+</section><!-- wrap -->
+{% endblock %} <!-- maincontent -->

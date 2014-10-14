@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% load mezzanine_tags shop_tags pages_tags %}
+
+{% block meta_title %}Build Your Own Glitter Kit{% endblock %}
+
+{% block extra_head %}
+<script src="{{ STATIC_URL }}js/tinybox.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+  $("article.glitter a, article.stencil a").click(function(){
+    
+    TINY.box.show({url:'/product-pop/?id=' + $(this).data("id"),maskid:'mask',boxid:'product_' + $(this).data("id"),width:540, height:540, top:50});
+    return false;
+  });
+
+  $(".kit a.button").click(function(){
+    var sku = $(this).parent().find(".price").data("sku");
+    var quantity = $(this).parent().find("input[name=quantity]").val();
+    pop_add_to_cart(sku, quantity, "stencils");
+    return false;
+  });
+
+  $(document).on("click", "#product-pop a.button", function(){
+
+    var sku = $(this).parent().find("#pop-variations").val();
+    if(sku===undefined){
+       sku = $(this).parent().find(".price").data("sku");
+    }
+    var quantity = $(this).parent().find("#quantity").val();
+    pop_add_to_cart(sku, quantity, "");
+    return false;
+  });
+
+  $(document).on("change", "#pop-variations", function(){
+    var sku = $(this).val();
+    get_variation_price(sku);
+  });
+
+}); // ready
+
+
+function onClosePop(nextstep){
+  window.location.href = "?step=" + nextstep;
+}
+
+function get_variation_price(sku){
+  $.ajax({
+    url: "/get_variation_price/",
+    data: "sku=" + sku,
+    success: function(data){
+      $("#product-pop .price").text(data);
+    }
+  });
+}
+
+function pop_add_to_cart(sku, quantity, nextstep){
+  $.ajax({
+    type: "POST",
+    url: "/build-your-own-kit/add_to_cart/",
+    data: "sku=" + sku + "&quantity=" + quantity + "&nextstep=" + nextstep + "&csrfmiddlewaretoken=" + $("input[name=csrfmiddlewaretoken]").val(),
+    success: function(data){
+      if(nextstep){
+        TINY.box.show({html:'<strong style="font-size:1.2em;">The item was added to your basket</strong>',autohide:2,width:240, height:100,closejs:function(){onClosePop(nextstep)} });
+      }
+      else{
+        html =  '<div id="mini-cart" class="whitebox">' +
+                '<p class="title"><strong><em>Your Basket</em></strong></p>' +
+                '<a class="edit-cart" href="{% url basket %}"><em>View Basket</em></a>' +
+                '<div>Total: &pound;' + data + '</strong></div><br>' +
+                '</div>';
+        $("#mini-cart-container").html(html);
+        TINY.box.show({html:'<strong style="font-size:1.2em;">The item was added to your basket</strong>',autohide:3,width:240, height:100});
+      }
+    }
+  });
+}
+</script>
+{% endblock %}
+
+{% block body_id %}build-your-own{% endblock %}
+
+{% block topcontent %}
+{% endblock %}
+
+{% block maincontent %}
+
+<section class="wrap" id="container">
+  {% if not wholesale_logged_in %}
+  <div id="loginprompt">
+    <img src="{{ STATIC_URL }}images/wee-arrow.png" alt="small arrow" class="noborder"><span>If you're a wholesale<br>customer, log in first!</span>
+  </div>
+  {% endif %}
+  <h1>Build Your Own Glitter Kit</h1>
+  <div class="headings-container">
+    <div class="third first {% if step == "basekits" %}active{% endif %}">
+      <h2><a href="?step=basekits">Choose a Kit Size</a></h2>
+    </div>
+    <div class="third {% if step == "stencils" %}active{% endif %}">
+      <h2><a href="?step=stencils">Choose Your Stencils</a></h2>
+    </div>
+    <div class="third last {% if step == "glitters" %}active{% endif %}">
+      <h2><a href="?step=glitters">Choose Your Glitters</a></h2>
+    </div>
+  </div>
+  <div class="action-container">
+    
+    {% if step == "basekits" %}
+    <div class="basekits">
+      {% for kit in products %}
+      <article class="kit {% cycle 'first' '' 'last' %}">
+        <h3>{{ kit.title }}</h3>
+        <img src="{{ MEDIA_URL }}{% thumbnail kit.image 200 200 %}" alt="{{ kit.title }}">
+        Quantity: <input type="text" name="quantity" id="{{ kit.id }}-quantity" value="1"><br>
+        <a href="#" class="button">
+          <span>Add to kit</span>{% csrf_token %}
+        </a>
+        {% for variation in kit.variations.all %}
+        <p class="price" data-sku="{{ variation.sku }}">&pound;{{ variation.unit_price }}</p>
+        {% endfor %}
+        <div class="desc">{{ kit.content|safe }}</div>
+      </article>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if step == "stencils" %}
+    <div class="stencils">
+      <div class="subcats">
+        {% if not subcats %}
+          <h4>{{ cat.title }} <a href="?step=stencils" title="Clear filter"><img src="{{ STATIC_URL }}images/clear.png"></a></h4>
+        {% endif %}
+        {% for cat in subcats %}
+        <a href="?step=stencils&amp;subcat={{ cat.slug }}">{{ cat.title }}</a><br>
+        {% endfor %}
+      </div>
+      <div class="product-grid">
+        {% for stencil in products %}
+        <article class="stencil">
+          <a href="#" data-id="{{ stencil.id }}">
+            <img src="{{ MEDIA_URL }}{% thumbnail stencil.image 80 80 %}" alt="{{ stencil.title }}">
+            <h3>{{ stencil.title }}</h3>
+          </a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if step == "glitters" %}
+    <div class="glitters">
+      <div class="subcats">
+        {% if not subcats %}
+          <h4>{{ cat.title }} <a href="?step=glitters" title="Clear filter"><img src="{{ STATIC_URL }}images/clear.png"></a></h4>
+        {% endif %}
+        {% for cat in subcats %}
+        <a href="?step=glitters&amp;subcat={{ cat.slug }}">{{ cat.title }}</a><br>
+        {% endfor %}
+      </div>
+      <div class="product-grid">
+        {% for glitter in products %}
+        <article class="glitter">
+          <a href="#" data-id="{{ glitter.id }}">
+            <img src="{{ MEDIA_URL }}{% thumbnail glitter.image 80 80 %}" alt="{{ glitter.title }}">
+            <h3>{{ glitter.title }}</h3>
+          </a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section><!-- wrap -->
+{% endblock %}

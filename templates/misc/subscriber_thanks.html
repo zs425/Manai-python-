@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load mezzanine_tags %}
+
+{% block extra_head %}{% endblock %}
+
+{% block meta_title %}{{ settings.SITE_TAGLINE }}{% endblock %}
+
+{% block body_id %}subscribe-thanks{% endblock %}
+
+{% block maincontent %}
+  <section class="wrap">
+    <div style="text-align:center;width:420px;margin: 0 auto;">
+      <h3><em>Thank you for joining our subscriber list! </em></h3>
+      <br>
+
+      <p>We have also sent you an email confirming your subscription. We'll be including a removal link in every email we send you, so you can leave our list any time that suits you.</p>
+
+      <p>We encourage you to also join us on our Social Media Channels...</p>
+      
+      <p>
+        <strong><a href="https://www.facebook.com/ManaiGlitterTattoos">Facebook</a></strong><br>
+        <strong><a href="https://twitter.com/Manai_Glitter">Twitter</a></strong>
+      </p>
+    </div>
+  </section> <!-- wrap -->
+{% endblock %} <!-- maincontent -->

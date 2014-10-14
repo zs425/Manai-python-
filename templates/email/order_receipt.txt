@@ -1,0 +1,48 @@
+{% extends "email/base.txt" %}
+{% load shop_tags i18n %}
+
+{% block main %}
+{% trans "Dear" %} {{ order.billing_detail_first_name }},
+
+{% trans "Your order has been successful, details are below." %}
+
+If you are purchasing a Professional Glitter Artist Kit be sure to send us an email to info@manai.co.uk with the following information so we can add you to our Artists Directory.
+
+First Name, Last Name, Company Name, City and Country, Website Link (if you don’t have a website consider submitting a link to a Social Media profile), Telephone Number, Your hourly Rate, A Profile Picture and a description of what services you offer (Maximum 500 characters).
+
+We would love to connect on our Social Media channels:
+
+Facebook 
+Twitter 
+Pinterest 
+Linked In
+
+We value your business. Please let us know if there is anything we can do to improve our products and service.
+
+Delivery and returns Terms and Conditions:
+https://manai.co.uk/about/delivery-returns/
+
+
+{% trans "Order ID:" %} #{{ order.id }}
+
+{% trans "Billing Details:" %}
+{% for field, value in order_billing_detail_fields %}
+{{ field }}: {{ value }}
+{% endfor %}
+
+{% trans "Shipping Details:" %}
+{% for field, value in order_shipping_detail_fields %}
+{{ field }}: {{ value }}
+{% endfor %}
+
+{% trans "Items Ordered:" %}
+{% for item in order_items %}
+{{ item.quantity }} x {{ item.description }} {{ item.unit_price|currency }} {% trans "each" %}
+{% endfor %}
+
+{% order_totals_text %}
+{% endblock %}
+
+
+info@manai.co.uk
+07624 482582

@@ -1,0 +1,25 @@
+    <div class="wholesale-call">
+      <a href="/wholesale-shop/accounts/signup/"></a>
+      <h2>You&rsquo;re not currently logged in as a wholesale customer</h2>
+      
+      <ul>
+        <li><a href="/retail-shop/">Go to the Main Retail Shop &raquo;</a></li>
+        <li><a href="/wholesale-shop/accounts/login/">Login now to your wholesale account &raquo;</a></li>
+        <li><a href="/wholesale-shop/accounts/signup/">Register now to see prices and place orders &raquo;</a></li>
+      </ul>
+
+      <p>To view wholesale items and pricing you must complete our online form and spend a minimum of £{{ wholesale_minimum_spend }} per order (inc. VAT). During registration you will create a login and password that allows you to shop 24 hours a day 7 days a week!</p>
+
+      <p>What makes us a great wholesale glitter tattoo supplier?</p>
+      <ul>
+        <li>Price – profit margins of between 30-50% on all products!</li>
+        <li>Small minimum orders</li>
+        <li>Fast, secure online ordering</li>
+        <li>Fast shipment</li>
+        <li>Make your own kits to suit your target customer</li>
+        <li>Reliability</li>
+        <li>Excellent customer service</li>
+        <li>Free postage &amp; packaging (UK)</li>
+      </ul>
+      <a class="call" href="/wholesale-shop/accounts/signup/">Register now &raquo;</a>
+    </div>

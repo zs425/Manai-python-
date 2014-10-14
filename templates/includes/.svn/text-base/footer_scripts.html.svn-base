@@ -1,0 +1,24 @@
+{% load mezzanine_tags shop_tags %}
+{% editable_loader %}
+<script>
+$(document).ready(function(){
+
+  // Checkout steps next
+  $("#checkout-form a#next").click(function(){
+    var input = $("<input>").attr("type", "hidden").attr("name", "next").val("Next");
+    $('#checkout-form').append($(input));
+    $('#checkout-form').submit();
+    return false;
+  });
+
+  // Checkout steps back
+  $("#checkout-form a#back").click(function(){
+    var input = $("<input>").attr("type", "hidden").attr("name", "back").val("Back");
+    $('#checkout-form').append($(input));
+    //$('#checkout-form').submit();
+    window.location.href = "/checkout/"
+    return false;
+  });
+
+}) //ready
+</script>

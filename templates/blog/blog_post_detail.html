@@ -1,0 +1,75 @@
+{% extends "blog/blog_post_list.html" %}
+{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n %}
+
+{% block meta_title %}{{ blog_post.title }}{% endblock %}
+
+{% block meta_keywords %}{% metablock %}
+{% keywords_for blog_post as tags %}
+{% for tag in tags %}{% if not forloop.first %}, {% endif %}{{ tag }}{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ blog_post.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title %}
+{% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
+{% endblock %}
+
+{% block breadcrumb_menu %}
+{{ block.super }}
+<li class="active">{{ blog_post.title }}</li>
+{% endblock %}
+
+{% block main %}
+
+<div class="post-container whitebox editable">
+    <h1>{{ blog_post.title }}</h1>
+    <h6>
+        <em>
+        <small>
+        {% trans "Posted by" %}:
+        {% with blog_post.user as author %}
+        <a href="{% url blog_post_list_author author %}">{{ author.get_full_name|default:author.username }}</a>
+        {% endwith %}
+        {{ blog_post.publish_date|timesince }} {% trans "ago" %}
+        </small>
+        </em>
+    </h6>
+
+    {% if blog_post.featured_image %}
+    <p><img src="{{ MEDIA_URL }}{% thumbnail blog_post.featured_image 600 0 %}"></p>
+    {% endif %}
+
+    {% editable blog_post.content %}
+    {{ blog_post.content|richtext_filter|safe }}
+    {% endeditable %}
+
+</div> <!-- post-container -->
+
+{% keywords_for blog_post as tags %}
+{% if tags %}
+{% spaceless %}
+<ul class="unstyled tags">
+    <li>{% trans "Tags" %}:</li>
+    {% for tag in tags %}
+    <li><a href="{% url blog_post_list_tag tag.slug %}">{{ tag }}</a></li>
+    {% endfor %}
+</ul>
+{% endspaceless %}
+{% endif %}
+
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style ">
+    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_pinterest_pinit"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-50351fce2af5b2ae"></script>
+    <!-- AddThis Button END -->
+
+{% if blog_post.allow_comments %}{% comments_for blog_post %}{% endif %}
+
+
+{% endblock %}

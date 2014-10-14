@@ -1,0 +1,58 @@
+{% load pages_tags %}
+
+{% spaceless %}
+<nav id="shop-crumbs">
+  <ul>
+  {% if on_home %}
+  <li>Home</li>
+  {% else %}
+  {% for page in page_branch %}
+
+      {% if page.is_primary and forloop.first %}
+      <li>
+          <a href="{% url home %}">Home</a>
+      </li>
+      <li class="divider"></li>
+      {% endif %}
+
+      {% if page.is_current_or_ascendant %}
+      {% if not page.is_current %}
+      <li>
+          <a href="{{ page.get_absolute_url }}">{% if page.slug == 'retail-shop' %}Shop{% else %}{{ page.title }}{% endif %}</a>
+      </li>
+      <li class="divider"></li>
+      {% endif %}
+    
+      {% endif %}
+
+    {% endfor %}
+  {% endif %}
+  {% if page.parent and page.parent.parent %}
+  <li>
+    <a href="{{ page.parent.get_absolute_url }}">{{ page.parent.title }}</a>
+  </li>
+  <li class="divider"></li>
+  {% endif %}
+    {% if product %}
+
+      {% for cat in product.categories.all %}
+        {% if cat.slug == referrer and cat.slug != 'retail-shop' and cat.slug != 'wholesale-shop' %}
+        <li>
+          <a href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
+        </li>
+        <li class="divider"></li>
+        {% endif %}
+      {% endfor %}
+
+
+    <li>{{ product.title }}</li>
+    {% else %}
+      {% if blog_post %}
+      <li>{{ blog_post.title }}</li>
+      {% else %}
+      <li>{% if page.slug == 'retail-shop' %}Shop{% else %}{{ page.title }}{% endif %}</li>
+      {% endif %}
+    {% endif %}
+  </ul>
+</nav>
+{% endspaceless %}

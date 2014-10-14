@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load mezzanine_tags shop_tags pages_tags rating_tags i18n %}
+
+{% block meta_title %}{{ product.title }}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ product.description }}
+{% endmetablock %}{% endblock %}
+
+{% block extra_head %}
+{{ block.super }}
+  <script src="{{ STATIC_URL }}js/tinybox.js"></script>
+  <script src="{{ STATIC_URL }}mezzanine/js/jquery.tools.js"></script>
+  <script>var variations = {{ variations_json|safe }};</script>
+  <script src="{{ STATIC_URL }}cartridge/js/product_variations.js"></script>
+  <script>
+  $(window).load(function(){
+    addthis.init();
+  })
+
+  $(document).ready(function(){
+    $("#add-cart a.button").click(function(){
+      $.ajax({
+        type: "POST",
+        url: "/add_to_cart/",
+        data: $("#add-cart").serialize() + "&id={{ product.id }}&shop_slug={{ shop_slug }}&slug={{ product.slug }}&csrfmiddlewaretoken=" + $("input[name=csrfmiddlewaretoken]").val(),
+        success: function(data){
+          if(data=='Discount error'){
+            TINY.box.show({html:'<strong style="font-size:1.2em;">Sorry, you cannot buy more than one of this product at a time.</strong>',autohide:3,width:240, height:90});
+          }
+          else{
+            html =  '<div id="mini-cart" class="whitebox">' +
+                    '<p class="title"><strong><em>Your Basket</em></strong></p>' +
+                    '<a class="edit-cart" href="{% url basket %}"><em>View Basket</em></a>' +
+                    '<div>Total: &pound;' + data + '</strong></div><br>' +
+                    '</div>';
+            $("#mini-cart-container").html(html);
+            TINY.box.show({html:'<strong style="font-size:1.2em;">The item was added to your basket</strong>',autohide:3,width:240, height:70});
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          TINY.box.show({html:'<strong style="font-size:1.2em;">There was an error. The item was not added to your basket.</strong>',autohide:3,width:240, height:90});
+        }
+      }); //ajax
+      return false;
+    }); // click
+  }); // ready
+  </script>
+{% endblock %}
+
+{% block body_id %}product{% endblock %}
+
+{% block topcontent %}
+{% page_menu "pages/menus/shop-categories.html" %}
+{% endblock %}
+
+{% block maincontent %}
+<section class="wrap notoppadding">
+{% page_menu "pages/menus/breadcrumb.html" %}
+{% block main %}
+<section class="product-container">
+  <div class="half">
+  {% if images %}
+  {% spaceless %}
+  <ul id="product-images-large" class="thumbnails">
+      {% for image in images %}
+      <li id="image-{{ image.id }}-large"{% if not forloop.first %}style="display:none;"{% endif %}>
+      	<div class="product-image-large thumbnail" rel="#image-full-{{ image.id }}">
+              <img alt="{{ image.description }}" src="{{ MEDIA_URL }}{% thumbnail image.file 495 0 %}">
+          </div>
+          <div class="product-image-full" style="display:none;" id="image-full-{{ image.id }}">
+              <img src="{{ MEDIA_URL }}{{ image.file }}">
+          </div>
+      </li>
+      {% endfor %}
+  </ul>
+
+  {% if images|length != 1 %}
+  <ul id="product-images-thumb" class="thumbnails">
+  	{% for image in images %}
+  	<li>
+          <a class="thumbnail" id="image-{{ image.id }}" href="{{ MEDIA_URL }}{{ image.file }}">
+              <img alt="{{ image.description }}" src="{{ MEDIA_URL }}{% thumbnail image.file 75 75 %}">
+          </a>
+      </li>
+  	{% endfor %}
+  </ul>
+  {% endif %}
+
+  {% endspaceless %}
+  {% endif %}
+  </div> <!-- half -->
+
+  <div id="product-details" {% if not related %}class="full"{% endif %}>
+    <div class="whitebox">
+    {% block title %}
+    <h1>{% editable product.title %}{{ product.title }}{% endeditable %}</h1>
+    {% endblock %}
+
+    {% editable product.content %}
+    {{ product.content|safe }}
+    {% if product.size %}<p><strong>Dimensions:</strong> {{ product.size }}</p>{% endif %}
+    {% endeditable %}
+
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style noprint">
+    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_pinterest_pinit"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+    </div>
+    <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-50351fce2af5b2ae&amp;async=1"></script>
+    <!-- AddThis Button END -->
+
+    {% if shop_slug == 'retail-shop' or wholesale_logged_in %}
+      {% if has_available_variations %}
+      <ul id="variations" class="unstyled">
+        {% for variation in variations %}
+        <li id="variation-{{ variation.sku }}"
+          {% if not variation.default %}style="display:none;"{% endif %}>
+          {% if variation.has_price %}
+            {% if variation.on_sale %}
+              <span class="old-price">{{ variation.unit_price|currency }}</span>
+              {% trans "On sale:" %}
+            {% endif %}
+            <p class="price"><strong>{{ variation.price|currency }}</strong></p><br style="clear:both;">
+            {% if wholesale_logged_in and product.margin %}
+            <p class="margin"><em>Wholesale margin: {{ product.margin }}</em></p>
+            {% endif %}
+          {% else %}
+              {% if has_available_variations %}
+              {% trans "The selected options are currently unavailable." %}
+              {% endif %}
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+        <form method="post" id="add-cart" class="form-horizontal form-shop">
+            {% fields_for add_product_form %}
+            <div class="form-actions clearfix">
+                <div class="form-actions-wrap">
+                <a href="#" class="button">
+                  <span>Add to basket</span>
+                </a>
+                <!--<input type="submit" class="btn btn-primary btn-large" name="add_cart" value="Add to basket">-->
+                <!--<input type="submit" class="btn btn-large" name="add_wishlist" value="{% trans "Save for later" %}">-->
+                </div>
+            </div>
+        </form>
+      {% else %}
+      <div>{% trans "This product is currently unavailable." %}</div>
+      {% endif %}
+    {% else %}
+      {% include "shop/includes/wholesale_call.html" %}
+    {% endif %}
+
+    <!--{% rating_for product %}-->
+    </div><!-- whitebox -->
+  </div> <!-- product-details -->
+
+  <div id="related-products">
+    {% if related %}
+    <h2>Related Products</h2>
+    <ul class="products unstyled">
+        {% for product in related %}
+        <li>
+            <a href="/{{ shop_slug }}/product/{{ product.slug }}/">
+                {% if product.image %}
+                <img src="{{ MEDIA_URL }}{% thumbnail product.image 90 90 %}"><br>
+                {% endif %}
+                &nbsp;{{ product }}
+            </a>
+              {% if product.has_price %}
+                  {% if product.on_sale %}
+                  <span class="old-price">{{ product.unit_price|currency }}</span>
+                  {% trans "On sale:" %}
+                  {% endif %}
+                  {{ product.price|currency }}
+              {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+  </div> <!-- related-products -->
+
+</section> <!-- product-container -->
+{% endblock %}
+{% endblock %} <!-- maincontent -->

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1220/manai/templates/pages
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/!svn/ver/1313/manai/templates/pages/index.html
+END
+artist_directory.html
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/1214/manai/templates/pages/artist_directory.html
+END
+page.html
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1278/manai/templates/pages/page.html
+END
+category.html
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1293/manai/templates/pages/category.html
+END
+product_pop.html
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/1203/manai/templates/pages/product_pop.html
+END
+public_profile.html
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/!svn/ver/1089/manai/templates/pages/public_profile.html
+END
+gallery.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1176/manai/templates/pages/gallery.html
+END
+buildyourown.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/1206/manai/templates/pages/buildyourown.html
+END

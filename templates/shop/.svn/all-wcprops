@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/!svn/ver/1226/manai/templates/shop
+END
+feed.xml
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/!svn/ver/1313/manai/templates/shop/feed.xml
+END
+product.html
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/1290/manai/templates/shop/product.html
+END
+billing_shipping.html
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/1138/manai/templates/shop/billing_shipping.html
+END
+checkout.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1293/manai/templates/shop/checkout.html
+END
+wishlist.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1058/manai/templates/shop/wishlist.html
+END
+order_invoice.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/1058/manai/templates/shop/order_invoice.html
+END
+complete.html
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/!svn/ver/1088/manai/templates/shop/complete.html
+END
+confirmation.html
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/1087/manai/templates/shop/confirmation.html
+END
+cart.html
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/1293/manai/templates/shop/cart.html
+END
+order_history.html
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/1058/manai/templates/shop/order_history.html
+END
+payment.html
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/!svn/ver/1058/manai/templates/shop/payment.html
+END

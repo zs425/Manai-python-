@@ -1,0 +1,36 @@
+Thank you for registering for our wholesale shop. You can now login using the credentials you provided!
+
+What makes us a great wholesale glitter tattoo supplier?
+
+- Price – retail margins of between 30-50% plus on all products!
+- Free delivery on all UK wholesale orders
+- Fast, secure online ordering
+- Small minimum orders only £120
+- Make your own kit to suit your target customer
+- Product Images and content to use in your online shop (if applicable)
+- Reliability
+- Customer service
+- Fast shipment
+
+If you are purchasing a Professional Glitter Artist Kit be sure to send us an email to info@manai.co.uk with the following information so we can add you to our Artists Directory.
+
+First Name, Last Name, Company Name, City and Country, Website Link (if you don’t have a website consider submitting a link to a Social Media profile), Telephone Number, Your hourly Rate, A Profile Picture and a description of what services you offer (Maximum 500 characters).
+
+We would love to connect on our Social Media channels:
+
+Facebook 
+Twitter 
+Pinterest 
+Linked In
+
+We value your business. Please let us know if there is anything we can do to improve our products and service.
+
+To log in go to {{ site_url }}wholesale-shop/accounts/login/
+
+Kind regards,
+
+Meena Sidpra
+manai.co.uk
+
+info@manai.co.uk
+07624 482582

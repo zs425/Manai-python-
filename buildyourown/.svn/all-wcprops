@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/!svn/ver/1124/manai/buildyourown
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/!svn/ver/1092/manai/buildyourown/__init__.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/1092/manai/buildyourown/tests.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/!svn/ver/1092/manai/buildyourown/models.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/!svn/ver/1291/manai/buildyourown/views.py
+END

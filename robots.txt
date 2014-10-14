@@ -1,0 +1,12 @@
+User-Agent: *
+Disallow: /admin
+Disallow: /checkout
+Disallow: /basket
+Disallow: /confirm
+Disallow: /complete
+Disallow: /account
+Disallow: /accounts
+Disallow: /product-pop
+Disallow: /wholesale-shop/accounts
+Disallow: /retail-shop/accounts
+Disallow: /get_variation_price

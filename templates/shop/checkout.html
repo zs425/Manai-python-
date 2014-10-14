@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% load shop_tags mezzanine_tags %}
+
+{% block meta_title %}Checkout - {{ step_title }}{% endblock %}
+{% block title %}Checkout - Step {{ step }} of {{ steps|length }}{% endblock %}
+{% block body_id %}checkout{% endblock %}
+
+{% block extra_head %}
+<script>
+var _gaq = [['_trackPageview', '{{ request.path }}{{ step_url }}/']];
+$(function() {
+
+    var europe = object_converter(["AL","AD","AM","AT","BY","BE","BA","BG","CH","CY","CZ","DE","DK","EE","ES","FO","FI","FR","GE","GI","GR","HU","HR","IE","IS","IT","LT","LU","LV","MC","MK","MT","NO","NL","PO","PT","RO","RU","SE","SI","SK","SM","TR","UA","VA"])
+
+    $('.middle :input:visible:enabled:first').focus();
+
+    if({{ request.cart.total_price }} >= 55 || "{{ wholesale_logged_in }}" === "True"){
+        hide_uk_delivery_choices();
+    }
+
+    if ( $("#id_shipping_detail_country").val() != "GB" ) {
+        hide_uk_delivery_choices();
+
+        if ( $("#id_shipping_detail_country").val() in europe ) {
+            //hide_world_delivery_choices();
+        }
+        else{
+            //hide_europe_delivery_choices();
+        }
+    }
+    else{
+        //hide_world_delivery_choices();
+        //hide_europe_delivery_choices();
+    }
+
+    $("#id_billing_detail_country").change(function(){
+        if($("#id_same_billing_shipping").is(":checked")){
+            $("#id_shipping_detail_country").val($(this).val());
+            $("#id_shipping_detail_country").trigger("change");
+        }
+    });
+
+    $("#id_same_billing_shipping").change(function(){
+        if($(this).is(":checked")){
+            $("#id_shipping_detail_country").val($("#id_billing_detail_country").val());
+            $("#id_shipping_detail_country").trigger("change");
+        }
+    })
+
+    $("#id_shipping_detail_country").change(function(){
+        if($(this).val()=="GB"){
+            //hide_world_delivery_choices();
+            //hide_europe_delivery_choices();
+            show_uk_delivery_choices()
+        }
+        else{
+            hide_uk_delivery_choices()
+            if ( $(this).val() in europe ) {
+                //hide_world_delivery_choices();
+                //show_europe_delivery_choices();
+            }
+            else{
+                //hide_europe_delivery_choices();
+                //show_world_delivery_choices();
+            }
+        }
+    });
+
+});
+
+function object_converter(a)
+{
+  var o = {};
+  for(var i=0;i<a.length;i++)
+  {
+    o[a[i]]='';
+  }
+  return o;
+}
+
+function hide_uk_delivery_choices(){
+    if($(".control-group.input_id_uk_delivery_rate_0").length > 0){
+        $(".control-group.input_id_uk_delivery_rate_0").remove();
+        html = '<input type="hidden" id="id_uk_delivery_rate" value="4.0" name="uk_delivery_rate">';
+        $("#checkout-form").append(html);
+    }
+}
+
+
+function hide_europe_delivery_choices(){
+    if($(".control-group.input_id_europe_delivery_rate_0").length > 0){
+        $(".control-group.input_id_europe_delivery_rate_0").remove();
+        //html = '<input type="hidden" name="europe_delivery_rate" value="{{ europe_delivery_slow_rate }}" id="id_europe_delivery_rate" />';
+        //$("#checkout-form").append(html);
+    }
+}
+
+
+function hide_world_delivery_choices(){
+    if($(".control-group.input_id_world_delivery_rate_0").length > 0){
+        $(".control-group.input_id_world_delivery_rate_0").remove();
+        //html = '<input type="hidden" name="world_delivery_rate" value="{{ world_delivery_slow_rate }}" id="id_world_delivery_rate" />';
+        //$("#checkout-form").append(html);
+    }
+}
+
+
+/*
+function show_uk_delivery_choices(){
+    if ({{ request.cart.total_price }} < {{ uk_retail_free_delivery_minimum }} && "{{ wholesale_logged_in }}" === "False") {
+        if($(".control-group.input_id_uk_delivery_rate_0").length == 0){
+            html = '<div class="control-group input_id_uk_delivery_rate_0">' +
+                   '     <label for="id_uk_delivery_rate_0">Choose delivery type</label>' +
+                   '     <div class="controls">' +
+                   '         <ul>' +
+                   '             <li><label for="id_uk_delivery_rate_0"><input type="radio" name="uk_delivery_rate" value="{{ uk_delivery_slow_rate }}" id="id_uk_delivery_rate_0" checked="checked"> UK First Class 3-5 Days: &pound;{{ uk_delivery_slow_rate }}</label></li>' +
+                   '             <li><label for="id_uk_delivery_rate_1"><input type="radio" name="uk_delivery_rate" value="{{ uk_delivery_fast_rate }}" id="id_uk_delivery_rate_1"> UK Special Delivery 1-2 Days: &pound;{{ uk_delivery_fast_rate }}</label></li>' +
+                   '         </ul>' +
+                   '         <span class="help-inline"></span>' +
+                   '     </div>' +
+                   '</div>'
+
+            $(".form-actions").before(html);
+        }
+    }
+}
+*/
+function show_uk_delivery_choices(){
+    if ({{ request.cart.total_price }} < 55 && "{{ wholesale_logged_in }}" === "False"){
+        if($(".control-group.input_id_uk_delivery_rate_0").length == 0){
+            html = '<div class="control-group input_id_uk_delivery_rate_0">' +
+                   '     <label for="id_uk_delivery_rate_0">Choose delivery type</label>' +
+                   '     <div class="controls">' +
+                   '         <ul>' +
+                   '             <li><label for="id_uk_delivery_rate_0"><input type="radio" name="uk_delivery_rate" value="4.00" id="id_uk_delivery_rate_0" checked="checked"> Royal Mail Recorded 1st Class, 3-5 days: &pound;4.00</label></li>' +
+                   '             <li><label for="id_uk_delivery_rate_1"><input type="radio" name="uk_delivery_rate" value="7.50" id="id_uk_delivery_rate_1"> Royal Mail Special Delivery, 1-2 days: &pound;7.50</label></li>' +
+                   '         </ul>' +
+                   '         <span class="help-inline"></span>' +
+                   '     </div>' +
+                   '</div>'
+
+            $(".form-actions").before(html);
+        }
+    }
+}
+
+/*
+function show_europe_delivery_choices(){
+    if($(".control-group.input_id_europe_delivery_rate_0").length == 0){
+        html =  '<div class="control-group input_id_europe_delivery_rate_0">'+
+                    '   <label for="id_europe_delivery_rate_0">European Delivery Rate</label>'+
+                    '   <div class="controls">'+
+                    '       <ul>'+
+                    '           <li>'+
+                    '               <label for="id_europe_delivery_rate_0">'+
+                    '                   <input checked="checked" type="radio" id="id_europe_delivery_rate_0" value="{{ europe_delivery_slow_rate }}" name="europe_delivery_rate" /> Europe Airmail Standard 4-6 Days: &pound;{{ europe_delivery_slow_rate }}'+
+                    '               </label>'+
+                    '           </li>'+
+                    '           <li>'+
+                    '               <label for="id_europe_delivery_rate_1">'+
+                    '                   <input type="radio" id="id_europe_delivery_rate_1" value="{{ europe_delivery_fast_rate }}" name="europe_delivery_rate" /> Europe Airsure Recorded Delivery 3-5 Days: &pound;{{ europe_delivery_fast_rate }}'+
+                    '               </label>'+
+                    '           </li>'+
+                    '       </ul>'+
+                    '       <span class="help-inline"></span>'+
+                    '   </div>'+
+                    '</div>'
+            $(".form-actions").before(html);
+    }
+}
+
+function show_world_delivery_choices(){
+    if($(".control-group.input_id_world_delivery_rate_0").length == 0){
+        html =  '<div class="control-group input_id_world_delivery_rate_0">'+
+                    '    <label for="id_world_delivery_rate_0">World Delivery Rate</label>'+
+                    '    <div class="controls">'+
+                    '        <ul>'+
+                    '            <li><label for="id_world_delivery_rate_0"><input checked="checked" type="radio" id="id_world_delivery_rate_0" value="{{ world_delivery_slow_rate }}" name="world_delivery_rate" /> World Airmail Standard 6-8 Days: &pound;{{ world_delivery_slow_rate }}</label></li>'+
+                    '            <li><label for="id_world_delivery_rate_1"><input type="radio" id="id_world_delivery_rate_1" value="{{ world_delivery_fast_rate }}" name="world_delivery_rate" /> World Airsure Recorded Delivery 5-7 Days: &pound;{{ world_delivery_fast_rate }}</label></li>'+
+                    '        </ul>'+
+                    '        <span class="help-inline"></span>'+
+                    '    </div>'+
+                    '</div>'
+            $(".form-actions").before(html);
+    }
+}
+*/
+
+
+</script>
+{% endblock %}
+
+{% block breadcrumb_menu %}
+{% for step in steps %}
+<li>
+    {% if step.title == step_title %}
+    <strong>{{ step.title }}</strong>
+    {% else %}
+    {{ step.title }}
+    {% endif %}
+    <span class="divider">/</span>
+</li>
+{% endfor %}
+<li>Complete</li>
+{% endblock %}
+
+{% block maincontent %}
+<section class="wrap">
+{% block main %}
+
+<div {% if not last_step %}class="half"{% endif %}>
+    <form method="post" id="checkout-form" class="form-horizontal form-shop span8">
+        {% csrf_token %}
+
+    	{% with form.non_field_errors as errors %}
+        {% if errors or form.errors %}
+        <div class="error-summary">
+          <p>Please correct the problems with the following fields:</p>
+          <p>{{ form.errors }}</p>
+        </div>
+        {% endif %}
+    	{% endwith %}
+
+    	{% block fields %}{% endblock %}
+
+    	{% if request.cart.has_items %}
+        <div class="form-actions clearfix">
+            <div class="form-actions-wrap">
+    	    <a href="#" class="button" id="next">
+                <span>{% if last_step %}Confirm Payment{% else %}Next &raquo;{% endif %}</a>
+            </a>
+            {% if not CHECKOUT_STEP_FIRST %}
+            <a href="#" class="button" id="back">
+                <span>&laquo; Back</a>
+            </a>
+            {% endif %}
+            </div>
+        </div>
+        <div id="site-seal">
+          <!--- Secure Site Seal - DO NOT EDIT --->
+          <span id="ss_img_wrapper_115-55_image_en"><a href="http://www.alphassl.com/ssl-certificates/wildcard-ssl.html" target="_blank" title="SSL Certificates"><img alt="Wildcard SSL Certificates" border=0 id="ss_img" src="//seal.alphassl.com/SiteSeal/images/alpha_noscript_115-55_en.gif" title="SSL Certificate"></a></span><script type="text/javascript" src="//seal.alphassl.com/SiteSeal/alpha_image_115-55_en.js"></script>
+          <!--- Secure Site Seal - DO NOT EDIT --->
+          <!-- Begin Official PayPal Seal --><a href="https://www.paypal.com/uk/verified/pal=meena%40manai%2eco%2euk" target="_blank"><img src="{{ STATIC_URL }}images/verification_seal.gif" border="0" alt="Official PayPal Seal"></A><!-- End Official PayPal Seal -->
+        </div>
+    	{% else %}
+        <p>Your basket is empty.</p>
+        <p>This may be due to your session timing out after a period of inactivity.</p>
+        <p>We apologize for the inconvenience.</p>
+        <br>
+        <p>
+            <a class="btn btn-large btn-primary" href="/retail-shop/">Retail shop</a><br>
+            <a class="btn btn-large btn-primary" href="/wholesale-shop/">Wholesale shop</a>
+        </p>
+    	{% endif %}
+
+      {% if step_title == 'Payment' %}
+      <p style="margin-top: 19px;line-height:1em;clear: both;"><small><em><strong>NOTE:</strong> You can review your details on the next screen before confirming your purchase.</em></small></p>
+      {% endif %}
+
+    </form>
+</div> <!-- half -->
+
+{% endblock %}
+</section> <!--  wrap -->
+{% endblock %} <!-- maincontent -->

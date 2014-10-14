@@ -1,0 +1,27 @@
+<p>Dear {{ order.billing_detail_first_name }},</p>
+<p>Your order has been successful, details are below.</p>
+
+<p>If you are purchasing a Professional Glitter Artist Kit be sure to send us an email to info@manai.co.uk with the following information so we can add you to our Artists Directory.</p>
+
+<p>First Name, Last Name, Company Name, City &amp; Country, Website Link (if you don’t have a website consider submitting a link to a Social Media profile), Telephone Number, Your hourly Rate, A Profile Picture and a description of what services you offer (Maximum 500 characters).</p>
+
+<p>We would love to connect on our Social Media channels:</p>
+
+<a href="http://www.facebook.com/manaiglittertattoos">Facebook </a><br>
+<a href="https://www.twitter.com/manai_glitter">Twitter </a><br>
+<a href="http://pinterest.com/ManaiGlitter/">Pinterest </a><br>
+<a href="http://uk.linkedin.com/pub/meena-sidpra/17/73a/465">Linked In</a><br>
+
+<p>We value your business. Please let us know if there is anything we can do to improve our products and service.</p>
+
+<p><a href="https://manai.co.uk/about/delivery-returns/">Delivery and returns: terms and conditions</a></p>
+
+{% include "shop/includes/order_details.html" %}
+<p>
+    <a href="https://manai.co.uk">manai.co.uk</a>
+</p>
+
+<p>
+    <a href="mailto:info@manai.co.uk">info@manai.co.uk</a><br>
+    07624 482582
+</p>

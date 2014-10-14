@@ -1,0 +1,1139 @@
+@import base
+
+html  
+  overflow-y: scroll
+  height: 100%
+
+body
+  font: 95%/1.5 $body_font
+  color: $dark
+  background: white url(/static/images/bg-flower.png)
+
+h1
+  font-family: $title_font
+  font-size: 3em
+  font-weight: bold
+  margin-bottom: 10px
+  color: #AB4D5D
+
+#blog h1, #product h1, #artists-directory h1, #account h1
+  color: $dark
+
+h2
+  font-family: $title_font
+  font-size: 240%
+  font-weight: bold
+  margin-bottom: 10px
+
+h3
+  font-family: $title_font
+  font-weight: bold
+  font-size: 200%
+
+h4
+  font-family: $title_font
+  font-weight: bold
+  font-size: 120%
+
+h5
+  font-family: $title_font
+  font-weight: bold
+  margin-top: 20px
+
+h1, h2, h3, h4, h5
+  line-height: 1.2em
+  
+p
+  margin-bottom: 16px
+a
+  +my-link($link_color)
+  
+table
+  margin-bottom: 30px
+
+td, th
+  padding: 4px
+
+em
+  font-style: italic
+strong
+  font-weight: bold
+
+pre, code
+  font-family: monospace
+  *
+    font-family: monospace
+
+pre
+  padding: 15px
+
+small
+  font-size: 80%
+
+section, article
+  margin-bottom: 30px
+  +clearfix
+
+/* HEADER
+
+#logo-container
+  position: relative
+  padding: 0 0 0
+  .left, .middle, .right
+    float: left
+    min-height: 100px
+    +clearfix
+  .left, .right
+    width: 26%
+  .middle
+    width: 48%
+  .left
+    /*background: transparent url(/static/images/top-decor-left.png) no-repeat right center
+  .right
+    /*background: transparent url(/static/images/top-decor.png) no-repeat left center
+
+#logo img
+  margin-top: 4px
+
+#nav-container
+  background: transparent url(/static/images/bg-top-side.png) repeat-x 0 -4px
+  height: 62px
+
+nav
+  +clearfix
+  background: white
+  border-left: solid 2px #EAE1D9
+  border-right: solid 2px #EAE1D9
+  height: 53px
+  text-transform: uppercase
+  .dropdown-menu
+    display: none
+  li.toplevel
+    float: left
+    height: 77px
+    text-align: center
+    padding: 0 1.4%
+    a
+      display: block
+      line-height: 55px
+      color: $dark
+      font-size: 1.13em
+    &.active
+      background: transparent url(/static/images/nav-marker.png) no-repeat
+      background-size: 100% 100%
+
+      a
+        color: $light
+        text-decoration: none
+
+      &:hover
+        a
+          text-decoration: none
+          color: $light
+    &:hover, &.active:hover
+      & ul
+        border-top: solid 3px #EDE7E7
+        border-bottom: solid 2px #EDE7E7
+        border-left: solid 2px #EDE7E7
+        border-right: solid 2px #EDE7E7
+        background: white
+        display: block
+        position: absolute
+        z-index: 100
+        margin-top: -2px
+        margin-left: -13px
+        text-align: left
+        padding-bottom: 6px
+        /*+box-shadow(0px 5px 7px #CDC6C6-#666)
+        li
+          padding: 5px 10px
+        li.first
+          border-top: solid 1px #DBCECE
+          padding-top: 10px
+        a
+          font-size: 0.8em
+          line-height: 1.1em
+          color: $dark
+        a:hover
+          color: $dark+#333
+      a
+        text-decoration: none
+        color: $dark+#333
+    &.active:hover a
+      color: $light
+
+/* SHOP
+#account-links
+  position: absolute
+  bottom: 0
+  left: 0
+  font-style: italic
+  font-size: 0.9em
+  color: $dark - #222
+  a
+    color: $link_color - #222
+
+#maincontent #site-seal
+  margin-top: 20px
+  img
+    +box-shadow(none)
+    border: none
+    float: right
+  #aa img
+    margin-top: 20px
+
+nav#shop-categories
+  +clearfix
+  background: white url(/static/images/bg-main.png)
+  border-top: solid 1px #EDE7E7 - #222
+  border-right-width: 1px
+  border-left-width: 1px
+  height: 33px
+  ul
+    border-top: solid 3px #EDE7E7
+    padding-left: 0.5%
+    li.toplevel
+      float: left
+      height: 30px
+      padding: 0 1%
+      a
+        font-size: 0.75em
+        line-height: 30px
+        color: $dark - #111
+      a:hover
+        color: $dark + #222
+
+nav#shop-categories.wholesale
+  background: white url(/static/images/bg-main-wholesale.png)
+  ul 
+    border-top: solid 3px $dark + #111
+    li.toplevel a
+      color: white
+
+nav#shop-crumbs
+  height: 33px
+  border-right-width: 1px
+  border-left-width: 1px
+  border-bottom: solid 1px #EDE7E7 - #111
+  text-transform: none
+  margin-bottom: 17px
+  ul
+    +clearfix
+    border-bottom: solid 3px #EDE7E7
+    padding-left: 1.5%
+    li
+      float: left
+      height: 30px
+      line-height: 30px
+      margin-right: 0.5%
+    li.divider
+      width: 22px
+      height: 30px
+      background: white url(/static/images/divider.png) 0 -4px no-repeat
+      margin-right: 0.7%
+
+/* STANDARD
+
+#maincontent .noborder
+  +box-shadow(none)
+  border: none
+
+article
+  +clearfix
+
+.wrap
+  +grid
+  padding: 0 5px
+
+.text-center
+  text-align: center
+
+#maincontent
+  background: white url(/static/images/bg-main.png)
+  border-top: solid 4px #EDE7E7
+  border-bottom: solid 4px #EDE7E7
+  padding-bottom: 40px
+  min-height: 300px
+  .wrap
+    padding-top: 20px
+  img
+    margin-left: 2px
+    border: solid white 5px
+    +box-shadow(1px 0px 3px $dark + #555)
+    +border-radius(2px)
+    float: left
+    margin-right: 10px
+  img.flat
+    margin: none
+    border: none
+    float: none
+    +box-shadow(none)
+    +border-radius(none)
+  .notoppadding
+    padding-top: 0
+
+.whitebox
+  +clearfix
+  background: white
+  +border-radius(2px)
+  +box-shadow(0px 2px 7px #CDC6C6-#222)
+  padding: 1.1%
+  margin-top: 7px
+
+#maincontent .whitebox
+  +box-shadow(1px 0px 3px $dark + #777)
+  +border-radius(2px)
+  margin: 0.5% 0.2%
+
+.center-container
+  margin: 0 auto
+  +clearfix
+
+.linkbutton
+  display: block
+  font-family: $body_font
+  line-height: 1.1em
+  font-size: 100%
+  font-weight: bold
+  +background-image(linear-gradient(white, #bbb))
+  padding: 10px 10px
+  text-align: center
+  +border-radius(3px)
+  +box-shadow(1px 1px 5px #6B434D)
+  border: solid 1px #ddd
+  &:hover
+    +background-image(linear-gradient(#ddd, white))
+    text-decoration: none
+
+.half
+  +half
+
+.third
+  +third
+
+.two-thirds
+  +two-thirds
+
+.half, .third
+  &.first article
+    padding: 0 5% 0 0
+  &.last article
+    padding: 0 0 0 5%
+
+.third
+  &.last
+    text-align: right
+  &.middle
+    text-align: center
+
+
+/* FORMS
+input[type=text], input[type=password], textarea
+  margin-bottom: 3px
+  padding: 5px 1px
+  width: 90%
+  border: solid 2px #EDE7E7 - #111
+
+.help-inline
+  font-size: 0.8em
+  display: block
+
+.error
+  input
+    border: solid 1px #c00
+  .help-inline
+    color: #c00
+
+.error-summary
+  +clearfix
+  margin-bottom: 20px
+  background: white
+  border: solid 1px #c00
+  color: #c00
+  padding: 2% 3%
+  ul
+    margin-left: 4%
+    li
+      list-style: disc
+
+.control-group
+  margin-bottom: 5px
+
+/* HOME
+#home
+  video
+    width: 99%
+    height: 300px
+  iframe
+    width: 99%
+    height: 300px
+
+#bigcats
+  padding: 1.1% 1.1% 0.6% 1.2%
+  margin-bottom: 20px
+  margin-top: 3px
+  .image-container
+    position: relative
+    margin: 0 0.666%
+    width: 24%
+    float: left
+    &.first
+      margin-left: 0
+    &.last
+      margin-right: 0
+    img
+      width: 100%
+    h2
+      text-align: center
+      width: 100%
+      padding: 3px 0
+      background: $dark - #444
+      +opacity(0.7)
+      +title-font($body_font, 0.8em, normal)
+      color: white
+      position: absolute
+      bottom: -5px
+      left: 0
+    a:hover
+      h2
+        +opacity(1)
+
+#puffs
+  padding: 1.3% 1.6%
+  div
+    padding: 1% 2%
+    color: white
+    h1, h2
+      color: white
+      font-size: 280%
+      font-style: italic
+    span
+      font-family: $title_font
+      font-size: 180%
+  .buildyourown
+    width: 45%
+    height: 236px
+    float: left
+    background: transparent url(/static/images/bg-glitter-pink.png) no-repeat
+    a
+      font-family: "Lobster Two"
+      color: white
+      font-size: 200%
+      display: block
+      float: right
+      margin-top: 40px
+  .wholesale
+    width: 45%
+    height: 236px
+    float: right
+    background: transparent url(/static/images/bg-glitter-blue.png) no-repeat
+    h2
+      font-size: 240%
+      display: inline-block
+    p
+      margin-bottom: 0
+    ul
+      margin-left: 17px
+      float: left
+      width: 35%
+      li
+        font-size: 0.9em
+        list-style: disc
+    .linkbutton-container
+      margin-top: 25px
+      span
+        font-size: 1.6em
+        font-style: italic
+        font-weight: bold
+      text-align: center
+      width: 38%
+      float: right
+    a.w-login
+      display: inline-block
+      padding: 3px 7px
+      float: right
+      +border-radius(3px)
+      margin-top: 6px
+      background: white
+      font-style: italic
+      font-weight: bold
+      border: solid 1px $link_color + #555500
+      +box-shadow(2px 1px 6px $link_color - #111)
+      &:hover
+        background: $link_color
+        color: white
+        text-decoration: none
+
+#seasonal
+  img
+    max-width: 50%
+    height: auto
+
+#blog-excerpts
+  .excerpt
+    margin-bottom: 20px
+    img
+      height: auto
+      max-width: 50%
+    .date
+      color: $dark + #222
+
+/* FOOTER
+footer
+  height: 500px
+  background: #6d4a4d url(/static/images/bg-flower-footer.png)
+  color: $light
+  border-top: solid 3px #6D4A4D-#080808
+  a
+    color: $link_color + #777
+
+  .links
+    clear: both
+    overflow: hidden
+    text-align: center
+    ul li
+      display: inline
+      margin: 0 8px
+
+  input[type=text], input[type=email]
+    border: solid 2px #6D4A4D
+
+
+#inner-footer
+  padding: 40px 0
+
+#footer-bg
+  background: transparent url(/static/images/bg-bg-footer.png) center bottom no-repeat
+  height: 460px
+  margin: 0 auto
+
+#inv
+  margin-top: 50px
+
+/* BLOG
+.post-container
+  img
+    height: auto
+    max-width: 40%
+
+#blog
+  h1
+    +title-font($body_font, 1.6em, bold)
+    +hr
+    line-height: 1.5em
+    margin-bottom: 5px
+    padding-bottom: 5px
+  #maincontent
+    .post-container.whitebox
+      padding: 3% 3.8%
+      margin: 0 5% 25px 0
+      h2
+        +title-font($body_font, 1.6em, bold)
+        line-height: 1.5em
+        margin-bottom: 5px
+        padding-bottom: 5px
+        +hr
+      h6
+        margin-bottom: 15px
+
+  #comments
+    margin-top: 20px
+    width: 60%
+    h3
+      +body-h3
+    ul
+      margin-bottom: 15px
+
+
+/* PAGE
+.editable.whitebox
+  padding: 2.7%
+
+.editable
+  ul
+    margin-bottom: 15px
+    margin-left: 20px
+    li
+      list-style: disc
+  h2, h3
+    clear: both
+  h2
+    +title-font($body_font, 1.3em, bold)
+    margin-top: 25px
+  h3
+    margin-top: 20px
+  h2:first-child
+    margin-top: 0
+  h3, h4
+    margin-bottom: 15px
+    +title-font($body_font, 1.15em, bold)
+  img
+    margin-bottom: 10px
+
+/* GALLERY
+#gallery
+  .thumbnails li
+    display: inline-block
+    margin-bottom: 5px
+    padding: 3px
+    +clearfix
+
+
+
+/* CATEGORY
+
+#category
+
+  .add-cart
+    margin-left: 4%
+    input[type=text]
+      width: 20%
+      text-align: center
+      padding: 2px 1px
+
+  #maincontent
+    .whitebox
+      padding: 4% 6%
+      font-size: 0.95em
+      margin-left: 2px
+
+      a.active
+        font-weight: bold
+
+  .thumbnails
+    margin-left: 2%
+    +clearfix
+    clear: both
+    li
+      text-align: center
+      float: left
+      line-height: 1.1em
+      margin-bottom: 15px
+      width: 25%
+      +title-font($body_font, 0.8em, normal)
+      h3
+        +title-font($body_font, 1em, normal)
+      a
+        display: block
+        +clearfix
+        padding-left: 4%
+        img
+          margin-bottom: 5px
+          max-width: 90%
+    li.first
+      clear: both
+
+    .button
+      -moz-transition: -moz-box-shadow 0.1s ease-in-out 0s
+      border-radius: 3px 3px 3px 3px
+      box-shadow: 0 8px 0 #376EC5, 0 5px 10px rgba(0, 0, 0, 0.55)
+      color: white
+      display: inline-block
+      float: none
+      font-size: 1em
+      padding: 0
+      cursor: pointer
+      /*margin: 10px 5px 10px 10px
+      margin: 0 1% 10px 0
+      span
+        -moz-transition: background-color 0.2s ease-in-out 0s, -moz-transform 0.1s ease-in-out 0s
+        background-color: #5398ED
+        background-image: -moz-linear-gradient(rgba(158, 202, 249, 0.8), rgba(108, 125, 247, 0.2))
+        border-radius: 3px 3px 3px 3px
+        box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.15) inset
+        display: inline-block
+        line-height: 1
+        padding: 10px 15px
+        text-shadow: 0 -1px 1px rgba(49, 89, 176, 0.7)
+
+    .button:hover span
+      text-shadow: 0 -1px 1px rgba(46, 105, 167, 0.9), 0 0 5px rgba(255, 255, 255, 0.8)
+      background-color: #6ABFED
+
+  .thumbnail
+    height: 214px
+
+  .product-sorting
+    float: left
+    margin-bottom: 10px
+    margin-left: 22px
+
+  .search-form
+    float: right
+    input[type=text]
+      width: 200px
+      padding: 2px 1px
+
+  .pagination
+    float: right
+    li
+      display: inline
+    li.next, li.prev
+      padding: 0 5px
+      font-size: 1.5em
+      font-weight: bold
+    li.active
+      a
+        color: $dark
+        font-weight: bold
+
+#search-results-page
+  h1
+    margin-top: 20px
+
+#search-results
+  padding: 15px
+
+/* PRODUCT
+
+#product
+  h1
+    font-size: 1.7em
+    font-family: $body_font
+    font-style: normal
+    +hr
+    padding-bottom: 10px
+
+  .product-container
+    +clearfix
+    padding: 4px 0
+  
+  #product-details
+    +clearfix
+    width: 35%
+    float: left
+    padding-left: 2px
+    .whitebox
+      padding: 3% 5% 5% 5%
+  
+  #product-details.full
+    width: 49.76%
+
+  #related-products
+    width: 10%
+    float: left
+    margin-left: 2%
+    text-align: center
+    line-height: 0.9em
+    h2
+      font-size: 1.2em
+      font-family: $body_font
+    li
+      font-size: 0.75em
+      margin-bottom: 20px
+      text-align: center
+      img
+        margin-left: 6px
+        margin-bottom: 4px
+  
+  .share
+    margin-bottom: 10px
+
+  ul#product-images-large
+    +clearfix
+    margin-bottom: 10px
+
+  div.product-image-large
+    +clearfix
+    padding-bottom: 5px
+    img
+      max-width: 95%
+
+  .form-horizontal
+    float: right
+    .control-group
+      float: right
+      margin-left: 1%
+
+    .input_id_quantity
+      width: 20%
+      label, input
+        float: right
+      input
+        width: 50%
+
+  a.button
+    clear: both
+    margin-right: -0.8%
+
+  p.margin
+    clear: both
+    text-align: center
+    +clearfix
+    padding: 5px 0
+    border-bottom: dashed 1px $dark + #666
+    border-top: dashed 1px $dark + #666
+
+  p.price
+    font-size: 1.2em
+    float: right
+
+#product-images-thumb li
+  display: inline-block
+  overflow: hidden
+  padding-bottom: 3px
+
+
+/* WHOLESALE
+.wholesale-call
+  +clearfix
+  background: #4F7591
+  color: white
+  padding: 10px 15px 20px
+  margin-bottom: 10px
+  ul
+    margin-left: 15px
+    margin-bottom: 10px
+    li
+      list-style: disc
+  a
+    color: white
+    font-weight: bold
+    font-size: 0.86em
+  h2
+    font-family: $body_font
+    font-size: 1.5em
+    font-weight: bold
+    font-style: italic
+  a.call
+    font-size: 1.3em
+    float: right
+
+/* CART
+#cart
+  h1
+    +body-h1
+  table.whitebox
+    margin-bottom: 15px
+    width: 100%
+    td, th
+      padding: 1% 2%
+    th
+      font-weight: bold
+      color: white
+      background: $dark + #111
+      border-bottom: solid 3px $dark + #444
+    tr.alt
+      background: $dark + #999
+  .form-actions
+    float: right
+    text-align: right
+
+  .buildyourown, .continueshopping
+    float: left
+    margin-top: 50px
+
+.discount-form
+  text-align: right
+  margin-bottom: 10px
+  input[name=discount_code]
+    width: 150px
+  li
+    list-style: none
+
+
+
+/* CHECKOUT
+
+#checkout-form
+  fieldset
+    margin-top: 20px
+  legend
+    margin-bottom: 10px
+    +body-h1
+  input, textarea
+    max-width: 72%
+  .form-actions
+    float: left
+    padding: 10px 0
+    a.button
+      margin: 10px 10px 5px 5px
+
+.input_id_optin
+  display: block
+  font-size: 0.8em
+  margin-top: 10px
+
+.input_id_card_ccv, .input_id_card_number, .input_id_card_name, .input_id_card_type_0, .card-expiry-fields
+  margin-bottom: 14px
+  border: solid 1px $dark+#555
+  padding: 10px 20px 20px
+  &>label
+    font-weight: bold
+
+/* CONFIRM
+#checkout .confirmation.order-totals
+  font-size: 1.2em
+  p
+    border-bottom: solid 2px $dark + #777
+
+/* MINI-CART
+#mini-cart
+  float: right
+  font-size: 0.8em
+  padding: 1.5% 2.8%
+  margin-right: 3px
+  margin-bottom: 5px
+  min-width: 50%
+  p.title
+    margin-bottom: 5px
+    padding-bottom: 3px
+    +hr
+  a
+    float: right
+
+/* Button style from http://cssdeck.com/labs/large-pressable-css-button
+.button
+  -moz-transition: -moz-box-shadow 0.1s ease-in-out 0s
+  border-radius: 3px 3px 3px 3px
+  box-shadow: 0 8px 0 #376EC5, 0 5px 10px rgba(0, 0, 0, 0.55)
+  color: white
+  display: inline-block
+  float: right
+  font-size: 1.5em
+  margin: 10px 5px 10px 10px
+  span
+    -moz-transition: background-color 0.2s ease-in-out 0s, -moz-transform 0.1s ease-in-out 0s
+    background-color: #5398ED
+    background-image: -moz-linear-gradient(rgba(158, 202, 249, 0.8), rgba(108, 125, 247, 0.2))
+    border-radius: 3px 3px 3px 3px
+    box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.15) inset
+    display: inline-block
+    line-height: 1
+    padding: 15px 25px
+    text-shadow: 0 -1px 1px rgba(49, 89, 176, 0.7)
+
+.button:hover span
+  text-shadow: 0 -1px 1px rgba(46, 105, 167, 0.9), 0 0 5px rgba(255, 255, 255, 0.8)
+  background-color: #6ABFED
+
+
+/* ACCOUNTS
+#account
+  #maincontent .whitebox
+    width: 80%
+    padding: 1.3em 2em 2em
+    ul
+      margin-left: 3%
+      list-style: disc
+  h1
+    +body-h1
+  legend
+    font-size: 1.4em
+    margin-bottom: 20px
+    font-weight: bold
+  form
+    margin-bottom: 50px
+    input[type=text], , input[type=password]
+      width: 70%
+    .control-group
+      margin-bottom: 10px
+    label[for=id_optin]
+      font-size: 0.8em
+
+/* ARTISTS DIRECTORY
+#artists-directory
+  h1
+    +body-h1
+  #maincontent .third
+    .whitebox
+      padding: 6% 7%
+  .controls
+    +clearfix
+    select
+      float: right
+  #artists-list
+    .artist
+      margin-left: 5%
+      h2
+        +body-h2
+        padding-bottom: 6px
+        +hr
+      a
+        font-weight: bold
+      .featured-image
+        width: 20%
+        float: left
+        margin-right: 15px
+        img
+          width: 90%
+      .description
+        float: left
+        width: 77%
+
+/* BUILD YOUR OWN
+#build-your-own
+  h1
+    font-size: 3em
+    font-style: italic
+    color: #AB4D5D
+  #container
+    text-align: center
+  #maincontent
+    .third
+      text-align: center
+    h2
+      font-size: 1.9em
+      background: #EEE7E7
+      border: solid 1px #ddd
+      +border-top-radius(5px)
+      margin: 0
+      padding: 8px 0
+      +body-h2
+    .active h2
+      background: white
+      border-bottom: solid 1px white
+    h3
+      +body-h3
+      margin-bottom: 10px
+    .product-grid h3
+      font-size: 1em
+      font-weight: normal
+  .headings-container, .action-container
+    +clearfix
+  .action-container
+    text-align: left
+    background: white
+    border-bottom: solid 1px #ddd
+    border-right: solid 1px #ddd
+    border-left: solid 1px #ddd
+    padding: 1% 2% 2%
+  .basekits
+    +clearfix
+    margin: 0 auto
+    width: 90%
+    .kit
+      text-align: center
+      margin: 2.3% 2%
+      float: left
+      width: 30.6%
+      height: 660px
+      img
+        margin: 0 12.5% 4%
+      .desc
+        margin: 10px 0
+      .button
+        float: none
+        margin: 10px 0
+      .price
+        margin-top: 15px
+        font-size: 1.5em
+      input[name=quantity]
+        width: 30px
+    .kit.first
+      margin-left: 0
+    .kit.last
+      margin-right: 0
+
+  .subcats
+    width: 20%
+    float: left
+    h4
+      font-family: $body_font
+      font-weight: normal
+      font-size: 1.1em
+    img
+      border: none
+      +box-shadow(none)
+      margin-right: 5px
+
+  .product-grid
+    width: 80%
+    float: left
+
+  .stencils, .glitters
+    padding-top: 30px
+
+  .stencil, .glitter
+    text-align: center
+    float: left
+    width: 103px
+    font-size: 0.76em
+    height: 130px
+    margin-bottom: 10px
+    img
+      margin: 5px
+
+  #loginprompt
+    position: absolute
+    text-align: left
+    font-style: italic
+    line-height: 1.25em
+    font-size: 0.8em
+    width: 210px
+    margin-top: 5px
+    img
+      margin-right: 4px
+      margin-top: -20px
+    span
+      display: inline-block
+      padding: 5px 7px
+      background: #C33E4B
+      color: white
+      font-weight: bold
+      margin-left: -15px
+
+/* TINYBOX 2
+
+.tbox
+  position: absolute
+  display: none
+  padding: 14px 17px
+  z-index: 900
+  +clearfix
+.tinner
+  padding: 15px
+  +border-radius(3px)
+  background: #fff url(/static/images/preload.gif) no-repeat 50% 50%
+  border-right: 1px solid #333
+  border-bottom: 1px solid #333
+  text-align: center
+  +clearfix
+.tmask
+  position: absolute
+  display: none
+  top: 0px
+  left: 0px
+  height: 100%
+  width: 100%
+  background: #000
+  z-index: 800
+.tclose
+  position: absolute
+  top: 0px
+  right: 0px
+  width: 30px
+  height: 30px
+  cursor: pointer
+  background: url(/static/images/close.png) no-repeat 
+.tclose:hover
+  background-position: 0 -30px
+
+#build-your-own
+  .tcontent
+    +clearfix
+    h2
+      +body-h2
+    .button
+      float: none
+      margin: 0 0 10px 15px
+      span
+        padding: 10px 15px
+        font-size: 0.9em
+    img
+      max-height: 390px
+      max-height: 400px
+    input
+      width: 30px
+    select
+      margin-right: 10px
+
+/* RESPONSIVE
+
+@media (max-width: 1160px)
+  body
+    font-size: 0.9em
+  nav li.toplevel
+    padding: 0 1.12%
+  #puffs .wholesale h2
+    font-size: 2.2em

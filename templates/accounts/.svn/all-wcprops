@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/1167/manai/templates/accounts
+END
+retail_signup.html
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/1085/manai/templates/accounts/retail_signup.html
+END
+retail_login.html
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/1085/manai/templates/accounts/retail_login.html
+END
+wholesale_signup.html
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/1079/manai/templates/accounts/wholesale_signup.html
+END
+wholesale_login.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1085/manai/templates/accounts/wholesale_login.html
+END
+account_profile.html
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/1163/manai/templates/accounts/account_profile.html
+END
+account_profile_update.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/1167/manai/templates/accounts/account_profile_update.html
+END
+account_form.html
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/1079/manai/templates/accounts/account_form.html
+END
+account_password_reset.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/1163/manai/templates/accounts/account_password_reset.html
+END

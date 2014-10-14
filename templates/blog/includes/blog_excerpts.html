@@ -1,0 +1,16 @@
+{% load pages_tags mezzanine_tags blog_tags typogrify_tags %}
+{% if posts %}
+<article id="blog-excerpts">
+  <h2>Latest From The Blog</h2>
+  {% for post in posts %}
+    <div class="excerpt">
+      <h3><a href="/blog/{{ post.slug }}/" title="Read this post">{{ post.title|typogrify }}</a></h3>
+      <small class="date"><strong>{{ post.publish_date|date:"l M jS Y" }}</strong></small>
+      <div class="content">
+        <p>{{ post.content|safe|typogrify|truncatewords:55 }}</p>
+      </div>
+      <a href="/blog/{{ post.slug }}/" title="Read on">Read this blog post &raquo;</a>
+    </div>
+  {% endfor %}
+</article>
+{% endif %}

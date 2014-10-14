@@ -1,0 +1,40 @@
+{% extends "accounts/account_form.html" %}
+
+{% block main %}
+<div class="half">
+  <div class="whitebox">
+    <h1>What makes us a great wholesale glitter tattoo supplier?</h1>
+    <ul>
+      <li>Price – profit margins of between 30-50% on all products!</li>
+      <li>Small minimum orders</li>
+      <li>Fast, secure online ordering</li>
+      <li>Fast shipment</li>
+      <li>Make your own kits to suit your target customer</li>
+      <li>Reliability</li>
+      <li>Excellent customer service</li>
+      <li>Free postage &amp; packaging (UK)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="half">
+{% if request.user.is_authenticated %}
+    <p>You're already logged in. If you'd like to create a new account, you'll need to log out first.</p>
+{% else %}
+  {% if form.errors %}
+  <div class="error-summary">
+    <p>Please correct the problems with the following fields:</p>
+    <ul>
+      {% for error in form.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {{ block.super }}
+  {% if settings.ACCOUNTS_VERIFICATION_REQUIRED %}
+  <p>After signing up, you'll receive an email with a link you need to click, in order to activate your account.</p>
+  {% endif %}
+{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load mezzanine_tags pages_tags %}
+
+{% block meta_title %}{{ page.title }}{% endblock %}
+
+{% block body_id %}page{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block maincontent %}
+<section class="wrap notoppadding">
+{% page_menu "pages/menus/breadcrumb.html" %}
+
+{% block title %}
+<h1>{% editable page.title %}{{ page.title }}{% endeditable %}</h1>
+{% endblock %}
+
+<div class="two-thirds whitebox editable">
+{% block main %}
+{% endblock %}
+</div>
+
+</section>
+{% endblock %}

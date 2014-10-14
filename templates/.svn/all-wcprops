@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/!svn/ver/1226/manai/templates
+END
+base.html
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/!svn/ver/1313/manai/templates/base.html
+END
+500.html
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/1134/manai/templates/500.html
+END
+search_results.html
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/!svn/ver/1285/manai/templates/search_results.html
+END
+404.html
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/1134/manai/templates/404.html
+END

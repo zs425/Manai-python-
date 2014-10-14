@@ -1,0 +1,23 @@
+{% load pages_tags i18n %}
+
+{% spaceless %}
+<ul id="primary-menu" class="nav pull-right">
+    {% for page in page_branch %}
+    {% if page.in_footer %}
+    {% if forloop.first %}
+    <li id="primary-menu-home" class="first{% if on_home %} active{% endif %}">
+        <a href="{% url home %}">{% trans "Home" %}</a>
+    </li>
+    {% endif %}
+    <li id="primary-menu-{{ page.html_id }}"
+        class="{% if page.is_current_or_ascendant %}active{% endif %}{% if forloop.last %} last{% endif %}">
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    <li>
+        <a href="/delivery-returns/">Delivery &amp; Returns</a>
+    </li>
+</ul>
+{% endspaceless %}
+

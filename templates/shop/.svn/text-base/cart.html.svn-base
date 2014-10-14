@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load mezzanine_tags shop_tags %}
+
+{% block extra_head %}
+{% if not discount_applied %}
+<script>
+$(document).ready(function(){
+  $("form.discount-form").trigger("submit");
+});
+</script>
+{% endif %}
+{% endblock %}
+
+{% block meta_title %}Your Basket{% endblock %}
+{% block title %}Your Basket{% endblock %}
+{% block body_id %}cart{% endblock %}
+
+{% block maincontent %}
+<section class="wrap">
+  {{ block.super }}
+  <h1>Your Basket</h1>
+
+  {% block main %}
+
+  {% if discount_form %}
+  <form method="post" class="discount-form">
+      {% csrf_token %}
+      {{ discount_form.as_ul }} <input type="submit" value="Apply">
+  </form>
+  {% endif %}
+  
+  {% if request.cart.has_items %}
+  <form method="post" class="form-cart form-shop">
+  {% csrf_token %}
+  {% for error in cart_formset.errors %}
+  {% if error.values.0 %}{{ error.values.0 }}{% endif %}
+  {% endfor %}
+  {{ cart_formset.management_form }}
+  <table class="table table-striped whitebox">
+  	<tr>
+  		<th colspan="2" class="left">Item</th>
+  		<th>Unit Price</th>
+  		<th width="9%">Qty</th>
+  		<th>Price</th>
+  		<th width="10%">Remove?</th>
+  	</tr>
+      {% for form in cart_formset.forms %}
+      {% with form.instance as item %}
+  	<tr class="{% cycle '' 'alt' %}">
+  		<td width="30">
+              {{ form.id }}
+  			{% if item.image %}
+  			<a href="{{ item.get_absolute_url }}">
+                  <img alt="{{ item.description }}" src="{{ MEDIA_URL }}{% thumbnail item.image 30 30 %}">
+              </a>
+  			{% endif %}
+  		</td>
+  		<td class="left">
+  		    <a href="{{ item.get_absolute_url }}">{{ item.description }}</a>
+          </td>
+  		<td>{{ item.unit_price|currency }}</td>
+  		<td class="quantity">{{ form.quantity }}</td>
+  		<td>{{ item.total_price|currency }}</td>
+  		<td class="center">{{ form.DELETE }}</td>
+  	</tr>
+  	{% endwith %}
+  	{% endfor %}
+  	<tr>
+  		<td colspan="4">&nbsp;</td>
+  		<td colspan="2"><strong>{% order_totals %}</strong></td>
+  	</tr>
+  </table>
+
+  {% if build_your_own %}
+  <a href="{% url build_your_own %}?step={{ build_your_own_nextstep }}" class="btn btn-primary btn-large button buildyourown">
+    <span>&laquo; Back to kit builder</span>
+  </a>
+  {% else %}
+  <a href="{% if wholesale_logged_in %}/wholesale-shop/{% else %}/retail-shop/{% endif %}" class="btn btn-primary btn-large button continueshopping">
+    <span>&laquo; Continue shopping</span>
+  </a>  
+  {% endif %}
+
+  <div class="form-actions clearfix">
+      <div class="form-actions-wrap">
+        <p><input type="submit" name="update_cart" class="btn btn-large" value="Update Cart"></p>
+        <p style="overflow:hidden;">
+          {% if not wholesale_logged_in or total >= wholesale_minimum_spend %}
+          <a href="{% url checkout %}" class="btn btn-primary btn-large button">
+            <span>Go to Checkout &raquo;</span>
+          </a>
+          {% else %}
+          <em>As a wholesale customer, you must spend at least &pound;{{ wholesale_minimum_spend }} on products before proceeding to the checkout.</em>
+          {% endif %}
+        </p>
+        <p id="site-seal">
+          <!--- Secure Site Seal - DO NOT EDIT --->
+          <span id="ss_img_wrapper_115-55_image_en"><a href="http://www.alphassl.com/ssl-certificates/wildcard-ssl.html" target="_blank" title="SSL Certificates"><img alt="Wildcard SSL Certificates" border=0 id="ss_img" src="//seal.alphassl.com/SiteSeal/images/alpha_noscript_115-55_en.gif" title="SSL Certificate"></a></span><script type="text/javascript" src="//seal.alphassl.com/SiteSeal/alpha_image_115-55_en.js"></script>
+          <!--- Secure Site Seal - DO NOT EDIT --->
+          <!-- Begin Official PayPal Seal --><a href="https://www.paypal.com/uk/verified/pal=meena%40manai%2eco%2euk" target="_blank"><img src="{{ STATIC_URL }}images/verification_seal.gif" border="0" alt="Official PayPal Seal"></A><!-- End Official PayPal Seal -->
+        </p>
+      </div>
+  </div>
+  </form>
+
+  {% with request.cart.upsell_products as upsell_products %}
+  {% if upsell_products %}
+  <div class="related">
+      <h2>You may also like:</h2>
+      <ul class="products">
+          {% for product in upsell_products %}
+          <li>
+  	        <a href="{{ product.get_absolute_url }}">
+  	            <div class="img">
+  		            {% if product.image %}
+  		            <img src="{{ MEDIA_URL }}{% thumbnail product.image 90 90 %}" />
+  		            {% endif %}
+  	            </div>
+  	            {{ product }}
+              </a>
+              {% if product.has_price %}
+              <p class="price">
+                  {% if product.on_sale %}
+  	                <span class="old-price">{{ product.unit_price|currency }}</span>
+  	                On sale:
+                  {% endif %}
+                  {{ product.price|currency }}
+              </p>
+              {% endif %}
+          </li>
+          {% endfor %}
+      </ul>
+  </div>
+  {% endif %}
+  {% endwith %}
+
+  {% else %}
+  <p>Your Basket is empty.</p>
+  {% endif %}
+  {% endblock %}
+</section> <!-- wrap -->
+{% endblock %} <!-- maincontent -->

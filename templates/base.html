@@ -1,0 +1,172 @@
+{% load pages_tags mezzanine_tags shop_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+  <meta name="description" content="{% block meta_description %}{% endblock %}" />
+  <meta name="google-site-verification" content="8s9oYaZNXEO7wiDyvsssZxb0zKFa80eoctuv6GmCj88" />
+
+  <title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+  {% block canonical %}{% endblock %}
+  <!--[if IE]><![endif]--> <!-- performance boost hack -->
+  {% ifinstalled "mezzanine.blog" %}
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url blog_post_feed "rss" %}" />
+  <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url blog_post_feed "atom" %}" />
+  {% endifinstalled %}
+
+  <link media="screen" rel="stylesheet" href="{{ STATIC_URL }}stylesheets/screen.css" type="text/css" />
+  <link media="print" rel="stylesheet" href="{{ STATIC_URL }}stylesheets/print.css" type="text/css" />
+  <link href='https://fonts.googleapis.com/css?family=Lobster+Two:400,700italic,700,400italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+
+  <link rel="Shortcut Icon" type="image/ico" href="{{ STATIC_URL }}images/favicon.ico" />
+
+    <!--[if lte IE 8]>
+       <link rel="stylesheet" href="{{ STATIC_URL }}stylesheets/ie.css" type="text/css"></script>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+       <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+
+  {% block extra_head %}{% endblock %}
+
+  {% if settings.GOOGLE_ANALYTICS_ID %}
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '{{ settings.GOOGLE_ANALYTICS_ID }}']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  </script>
+  {% endif %}
+
+</head>
+<body id="{% block body_id %}{% endblock %}">
+
+    <div id="nav-container">
+
+      <div class="wrap">
+        <nav class="primary">
+          {% page_menu "pages/menus/dropdown.html" %}
+        </nav>
+      </div><!-- wrap -->
+    </div><!-- nav-container -->
+    
+    <div id="logo-container" class="wrap">
+
+      <div class="left">
+        {% if shop_slug == 'wholesale-shop' or buildyourown %}
+        &nbsp;
+        <div id="account-links">
+          {% if not wholesale_logged_in %}
+          <a href="/wholesale-shop/accounts/login/{% if buildyourown %}?next=/build-your-own-kit/{% endif %}">Wholesale Log in</a> &nbsp;
+          <a href="/wholesale-shop/accounts/signup/">Register</a>
+          {% else %}
+          Logged in as {{ request.user.first_name }} <a href="/wholesale-shop/accounts/logout/{% if buildyourown %}?next=/build-your-own-kit/{% endif %}">Log out</a>
+          {% endif %}
+        </div>
+        {% else %}
+        &nbsp;
+        {% endif %}
+      </div>
+
+      <div class="middle text-center">
+        <a href="/" title="Home page" id="logo"><img src="{{ STATIC_URL }}images/logo-special-450.png" alt="Manai logo" /></a>
+      </div>
+      
+      <div class="right" id="mini-cart-container">
+        {% if request.cart.has_items %}
+        <div id="mini-cart" class="whitebox">
+          <p class="title"><strong><em>Your Basket</em></strong></p>
+          {% order_totals %}
+          <a class="edit-cart" href="{% url basket %}"><em>View Basket</em></a>
+        </div>
+        {% else %}
+        &nbsp;
+        {% endif %}
+      </div>
+
+    </div>
+    
+    <div id="topcontent">
+      {% block topcontent %}{% endblock %}
+    </div><!-- main -->
+    <div id="maincontent">
+      {% block maincontent %}{% endblock %}
+    </div><!-- content -->
+
+  <footer>
+    <div id="footer-bg">
+      <div id="inner-footer" class="wrap">
+        
+        <div class="third first">
+          <article>
+            <h2>Contact Details</h2>
+            <p>For more information about our products and services, and for trade enquiries, please get in touch:</p>
+            <p>
+              07624 482582<br>
+              <a href="mailto:info@manai.co.uk">info@manai.co.uk</a>
+            </p>
+          </article>
+        </div>
+
+        <div class="third middle noprint">
+          <article>
+            <h2>Social media</h2>
+            <p>
+              <a href="https://twitter.com/ManaiGlitter" title="Follow Manai on Twitter"><img src="{{ STATIC_URL }}images/twitter-icon.png" alt="Twitter icon"></a>
+              <a href="https://www.facebook.com/ManaiGlitter" title="Manai on Facebook"><img src="{{ STATIC_URL }}images/facebook-icon.png" alt="Facebook icon"></a>
+              <a href="https://pinterest.com/ManaiGlitter/" title="Manai on Pinterest"><img src="{{ STATIC_URL }}images/pinterest-icon.png" width="32" height="32" alt="Follow us on Pinterest" /></a>
+              <a href="https://www.youtube.com/ManaiBodyArt" title="Watch our videos on YouTube"><img src="{{ STATIC_URL }}images/youtube-icon.png" alt="YouTube icon"></a>
+            </p>
+          </article>
+        </div>
+
+        <div class="third last noprint">
+          <article>
+            <h2>Newsletter</h2>
+
+            <form id="newsletter-signup" action="http://mail.inventivemanagement.com/t/r/s/yujlihr/" method="post">
+              <span>Sign up for our newsletter</span><br>
+              <input placeholder="Name" type="text" name="cm-name" id="name" /><br />
+              <input placeholder="E-mail address" type="text" name="cm-yujlihr-yujlihr" id="yujlihr-yujlihr" /><br />
+              <select name="cm-fo-vhthrl">
+                <option value="3119922">Retail Customer</option>
+                <option value="3119923">Trader</option>
+                <option value="3119924">Glitter Pro Kit Consultant</option>
+                <option value="3119925">Beauty Salon</option>
+                <option value="3119926">Henna Artist</option>
+                <option value="3119927">Event Planner</option>
+                <option value="3119928">Charity Fundraiser</option>
+                <option value="3119929">School Fundraiser</option>
+                <option value="3119930">Face Painter</option>
+                <option value="3119931">Nail Salon</option>
+                <option value="3119932">Hair Dresser</option>
+                <option value="3119933">Make Up Artist</option>
+              </select>
+              <p><br><input type="submit" value="Subscribe" /></p>
+            </form>
+          </article>
+        </div>
+
+        <div class="links noprint">
+          {% page_menu "pages/menus/footer.html" %}
+          <p id="inv"><small>Web site built by <a href="http://www.inventivemanagement.co.uk">Inventive Management</a></small></p>
+        </div>
+
+
+      </div> <!-- inner-footer -->
+    </div><!-- footer-bg -->
+  </footer>
+
+{% include "includes/footer_scripts.html" %}
+</body>
+</html>

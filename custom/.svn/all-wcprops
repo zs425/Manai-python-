@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 27
+/!svn/ver/1225/manai/custom
+END
+checkout.py
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/1313/manai/custom/checkout.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1178/manai/custom/forms.py
+END
+defaults.py
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/1268/manai/custom/defaults.py
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1313/manai/custom/admin.py
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1313/manai/custom/views.py
+END
+page_processors.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/!svn/ver/1174/manai/custom/page_processors.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/!svn/ver/1052/manai/custom/__init__.py
+END
+campaign_monitor_api.py
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/!svn/ver/1087/manai/custom/campaign_monitor_api.py
+END
+utils.py
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1085/manai/custom/utils.py
+END
+tests.py
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1052/manai/custom/tests.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/!svn/ver/1166/manai/custom/models.py
+END

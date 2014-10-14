@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/!svn/ver/1210/manai/templates/blog
+END
+blog_post_list.html
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/1100/manai/templates/blog/blog_post_list.html
+END
+blog_post_detail.html
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/1210/manai/templates/blog/blog_post_detail.html
+END

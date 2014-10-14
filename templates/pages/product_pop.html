@@ -1,0 +1,26 @@
+{% load pages_tags mezzanine_tags shop_tags %}
+
+<h2>{{ product.title }}</h2>
+<p><img src="{{ MEDIA_URL }}{% thumbnail product.image 400 0 %}" alt="{{ product.title }}"></p>
+<p>
+
+<form id="product-pop">{% csrf_token %}
+  {% if variations.count > 1 %}
+    <select id="pop-variations">
+    {% for variation in variations %}
+      <option value="{{ variation.sku }}">{{ variation.option1 }}</option>
+    {% endfor %}
+    </select>
+    <strong>Price: </strong>&pound;<span class="price">{{ product.unit_price }}</span> &nbsp;
+  {% else %}
+    {% for variation in product.variations.all %}
+    <strong>Price: </strong>&pound;<span class="price" data-sku="{{ variation.sku }}">{{ variation.unit_price }}</span> &nbsp;
+    {% endfor %}
+  {% endif %}
+
+  {% if product.size %}<strong>Dimensions:</strong> {{ product.size }}{% endif %}</p>
+  <strong>Quantity:</strong> <input type="text" name="quantity" id="quantity" value="1">
+  <a href="#" class="button">
+    <span>Add to kit</span>
+  </a>
+</form>

@@ -1,0 +1,47 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags pages_tags %}
+
+{% block extra_head %}
+{{ block.super }}
+<script src="{{ STATIC_URL }}js/tinybox.js"></script>
+<script>
+$(document).ready(function(){
+  $("a.thumbnail").click(function(){
+    var src = $(this).attr("href");
+    TINY.box.show({image:src,animate:true});
+    return false;
+  })
+})
+</script>
+{% endblock %}
+
+{% block body_id %}gallery{% endblock %}
+
+{% block maincontent %}
+<section class="wrap notoppadding">
+{% page_menu "pages/menus/breadcrumb.html" %}
+
+{% block title %}
+<h1>{% editable page.title %}{{ page.title }}{% endeditable %}</h1>
+{% endblock %}
+
+<div class="whitebox editable">
+{% block main %}
+{{ block.super }}
+
+<ul class="thumbnails gallery">
+{% with page.gallery.images.all as images %}
+{% for image in images %}
+<li>
+    <a class="thumbnail" rel="#image-{{ image.id }}" title="{{ image.description }}" href="{{ MEDIA_URL }}{{ image.file }}">
+        <img class="image-overlay-thumb" src="{{ MEDIA_URL }}{% thumbnail image.file 75 75 %}" alt="{{ image.description }}">
+    </a>
+</li>
+{% endfor %}
+{% endwith %}
+</ul>
+{% endblock %}
+</div>
+</section>
+{% endblock %}

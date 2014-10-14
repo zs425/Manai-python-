@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/!svn/ver/1198/manai/templates/email
+END
+order_receipt.txt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/!svn/ver/1177/manai/templates/email/order_receipt.txt
+END
+order_alert.html
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/1198/manai/templates/email/order_alert.html
+END
+registration_confirmation.html
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/1162/manai/templates/email/registration_confirmation.html
+END
+password_reset_verify.txt
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/1162/manai/templates/email/password_reset_verify.txt
+END
+order_receipt.html
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/!svn/ver/1188/manai/templates/email/order_receipt.html
+END
+password_reset_verify.html
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/1162/manai/templates/email/password_reset_verify.html
+END
+order_alert.txt
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/!svn/ver/1198/manai/templates/email/order_alert.txt
+END
+registration_confirmation.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/1162/manai/templates/email/registration_confirmation.txt
+END

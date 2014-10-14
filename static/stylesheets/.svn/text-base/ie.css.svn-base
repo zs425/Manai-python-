@@ -1,0 +1,17 @@
+nav li.toplevel.active {
+  background: #795155;
+  border: solid 3px #564545;
+  margin-top: -3px; }
+
+#product-images-thumb li {
+  display: inline; }
+
+#puffs div h1, #puffs div h2 {
+  font-style: normal; }
+
+#puffs .linkbutton {
+  background: white;
+  border: solid 3px #dddddd; }
+
+a.button {
+  cursor: pointer; }

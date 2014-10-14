@@ -1,0 +1,47 @@
+{% load pages_tags shop_tags %}
+{% spaceless %}
+{% if page_branch_in_navigation %}
+{% if branch_level == 0 %}
+<ul class="nav pull-right">
+    {% for page in page_branch %}
+    {% if page.is_primary and forloop.first %}
+    <li class="{% if on_home %} active{% endif %} toplevel" id="dropdown-menu-{{ page.html_id }}">
+        <a href="{% url home %}">Home</a>
+    </li>
+    {% endif %}
+    {% if page.in_navigation %}
+    {% if page.slug == 'artists-directory' and artists %}
+    <li class="dropdown active toplevel">
+    {% elif page.slug == 'build-your-own-kit' and buildyourown %}
+    <li class="dropdown active toplevel">
+    {% else %}
+    <li class="dropdown{% if page.is_current_or_ascendant %} active{% endif %} toplevel" id="dropdown-menu-{{ page.html_id }}">
+    {% endif %}
+        <a href="{{ page.get_absolute_url }}">
+            {% if page.slug == 'retail-shop' %}
+            Shop
+            {% else %}
+            {{ page.title }}
+            {% endif %}
+            {% if page.has_children %}<span class="caret"></span>{% endif %}
+        </a>
+        {% if page.has_children %}{% page_menu page %}{% endif %}
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if branch_level == 1 %}
+<ul class="dropdown-menu">
+    {% for page in page_branch %}
+    {% if page.in_navigation %}
+    <li class="{% if page.is_current_or_ascendant %}active{% endif %}{% if forloop.first %} first{% endif %}" id="dropdown-menu-{{ page.html_id }}">
+        <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+{% endif %}
+{% endspaceless %}

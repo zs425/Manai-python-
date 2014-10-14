@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+<title>{{ site_title }}</title>
+<link>{{ site_url }}</link>
+<description>Quality designer gifts, fashion, wall art and clothes from the heart of Edinburgh, Scotland</description>
+
+{% for p in products %}
+<item>
+<title>{{ p.title }}</title>
+<link>{{ site_url }}retail-shop/product/{{ p.slug }}/</link>
+<description>{{ p.description }}</description>
+{% for image in p.images.all %}
+{% if forloop.counter == 1 %}
+<g:image_link>{{ site_url }}{{ MEDIA_URL }}{{ image.file }}</g:image_link>
+{% else %}
+  {% if forloop.counter == 2 %}<g:additional_image_link>{{ site_url }}{{ MEDIA_URL }}{{ image.file }}</g:additional_image_link>{% endif %}
+{% endif %}
+{% endfor %}
+<g:price>{{ p.price }}</g:price>
+<g:condition>new</g:condition>
+<g:availability>in stock</g:availability>
+<g:id>{{ p.id }}</g:id>
+<g:shipping>
+   <g:country>GB</g:country>
+   <g:service>UK First Class</g:service>
+   <g:price>{{ uk_slow_rate }}</g:price>
+</g:shipping>
+<g:shipping>
+   <g:country>GB</g:country>
+   <g:service>UK Special Delivery</g:service>
+   <g:price>{{ uk_fast_rate }}</g:price>
+</g:shipping>
+<g:google_product_category>Arts &amp; Entertainment &gt; Party &amp; Celebration &gt; Party Supplies &gt; Temporary Tattoos</g:google_product_category>
+{% for cat in p.categories.all %}
+{% if cat.slug != 'retail-shop' %}
+<g:product_type>{% if cat.parent.parent and cat.parent.parent.slug != 'retail-shop' %}{{ cat.parent.parent.title }} &gt; {% endif %}{% if cat.parent and cat.parent.slug != 'retail-shop' %}{{ cat.parent.title }} &gt; {% endif %}{{ cat.title }}</g:product_type>
+{% endif %}
+{% endfor %}
+<g:brand>Manai</g:brand>
+<g:mpn>{% if p.ref %}{{ p.ref }}{% else %}MANAI{{ p.id }}{% endif %}</g:mpn>
+</item>
+{% endfor %}
+
+</channel>
+</rss>

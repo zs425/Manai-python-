@@ -1,0 +1,7 @@
+<p>The following order has been completed by a <b>{{ customer_type }}</b> customer.</p>
+
+<p>
+    <a href="http://manai.co.uk/admin">Log in to manai.co.uk to view this order in your admin system and download a PDF.</a>
+</p>
+
+{% include "shop/includes/order_details_for_alert.html" %}

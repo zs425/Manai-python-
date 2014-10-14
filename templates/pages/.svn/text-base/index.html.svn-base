@@ -1,0 +1,120 @@
+  {% extends "base.html" %}
+{% load mezzanine_tags %}
+
+{% block meta_title %}{{ settings.SITE_TAGLINE }}{% endblock %}
+
+{% block meta_description %}{% endblock %}
+
+{% block body_id %}home{% endblock %}
+
+{% block topcontent %}
+  <section class="wrap">
+    <article class="whitebox" id="bigcats">
+      <div class="center-container">
+        <div class="image-container first">
+          <a href="/retail-shop/glitter-tattoo-kits/" title="Glitter Tattoo Kits: View our products">
+            <img src="{{ STATIC_URL }}images/hand.jpg" alt="Hand with heart glitter tattoo">
+            <h2>Glitter Tattoo Kits: Gift &amp; Party Kits</h2>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="/retail-shop/body-art-jewellery-glitter-kits/">
+            <img src="{{ STATIC_URL }}images/body-art-jewellery-home.jpg" alt="Body art jewellery photo">
+            <h2>Body Art Jewellery</h2>
+          </a>
+        </div>
+        <div class="image-container">
+          <a href="/retail-shop/henna-mehndi-mica-and-traditional-henna/" title="Henna Artist Supplies: view our products">
+            <img src="{{ STATIC_URL }}images/hands.jpg" alt="Hands with henna glitter art">
+            <h2>Henna Artists</h2>
+          </a>
+        </div>
+        <div class="image-container last">
+          <a href="/retail-shop/professional-glitter-tattoo-kits/">
+            <img src="{{ STATIC_URL }}images/glitterpots.jpg" alt="Glitter pots">
+            <h2>Professional Glitter Tattoo Kits</h2>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="whitebox" id="puffs">
+      <div class="buildyourown">
+        <h1>Build Your Own Glitter Tattoo Kit</h1>
+        <span>Choose your stencils, </span>
+        <span>Choose your glitters</span>
+        <a href="/build-your-own-kit/">Start Building Now &raquo;</a>
+      </div><!-- buildyourown -->
+      <div class="wholesale">
+        <h2>Wholesale Customer Portal</h2> &nbsp;<a href="/wholesale-shop/accounts/login/" class="w-login">Log in</a>
+        <p>Perfect for...</p>
+        <ul>
+          <li>Traders</li>
+          <li>Beauty salons</li>
+          <li>Pro-Kit consultants</li>
+          <li>Party planners</li>
+          <li>Charity fundraisers</li>
+          <li>Henna artists</li>
+          <li>Make-up artists</li>
+        </ul>
+        <div class="linkbutton-container">
+          <span>Save up to 50%!</span>
+          <a href="/wholesale-shop/accounts/signup/" class="linkbutton">Register to become a wholesale customer</a>
+        </div>
+      </div><!-- wholesale -->
+    </article>
+  </section> <!-- wrap -->
+{% endblock %} <!-- topcontent -->
+
+{% block maincontent %}
+  <section class="wrap">
+
+    <div class="half first">
+      <article id="seasonal">
+        {{ content|safe }}
+      </article>
+      <article id="video">
+        <h2>Watch Our Video</h2>
+        <iframe src="https://www.youtube.com/embed/ymmBk5Lev1w" frameborder="0" allowfullscreen></iframe>
+      </article>
+    </div><!-- half -->
+
+    <div class="half last">
+
+      {% include "blog/includes/blog_excerpts.html" %}
+
+      <article id="gallery">
+        <h2>Inspiration Image Galleries</h2>
+        <p>To see what our glitter tattoos and body art actually look like once applied, have a look at our photo galleries:</p>
+        <ul class="thumbnails">
+          {% for gallery in galleries %}
+          <li>
+            <a href="{{ gallery.get_absolute_url }}" title="{{ gallery.title }}">
+              <img src="{{ MEDIA_URL }}{% thumbnail gallery.firstimage.file 75 75 %}" alt="{{ gallery.firstimage.description }}">
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </article>
+
+      <article id="extra">
+
+        <h2>Connect With Us on Our Social Media Channels</h2>
+        <p>Please check us out and say hello on <a href="https://www.facebook.com/manaiglittertattoos">Facebook</a>, <a href="https://www.twitter.com/manai_glitter">Twitter</a>, <a href="https://pinterest.com/ManaiGlitter/">Pinterest</a> or <a href="http://uk.linkedin.com/pub/meena-sidpra/17/73a/465">LinkedIn</a>. Or to keep up-to-date with our events and products, sign up to our newsletter below.</p>
+        <p>And if you like this site, please tell the world!</p>
+
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style ">
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        <a class="addthis_button_tweet"></a>
+        <a class="addthis_button_pinterest_pinit"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
+        </div>
+        <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-50351fce2af5b2ae"></script>
+        <!-- AddThis Button END -->
+
+      </article>
+    </div><!-- half -->
+
+  </section> <!-- wrap -->
+{% endblock %} <!-- maincontent -->

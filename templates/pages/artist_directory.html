@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load mezzanine_tags shop_tags pages_tags %}
+
+{% block meta_title %}Artists Directory{% endblock %}
+
+{% block extra_head %}
+  <script>
+  $(document).ready(function(){
+    $("#artists-directory #city").change(function(){
+      window.location.href = "/artists-directory/?city=" + $(this).val();
+    });
+  });
+  </script>
+{% endblock %}
+
+{% block body_id %}artists-directory{% endblock %}
+
+{% block topcontent %}
+{% endblock %}
+
+{% block maincontent %}
+<section class="wrap">
+
+  {% block main %}{{ block.super }}
+  <div class="third">
+    <div class="whitebox">
+
+      {{ content|safe }}
+
+    </div><!-- whitebox -->
+  </div><!-- third -->
+  {% endblock %} <!-- main -->
+
+  <div class="twothirds">
+      <div class="controls">
+        <select id="city" name="city">
+          <option value="">--- FILTER: All locations ---</option>
+          {% for city in cities %}
+          <option value="{{ city }}" {% if city == selected_city %}selected="selected"{% endif %}>{{ city}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <section id="artists-list">
+      {% for artist in artists %}
+        {% if artist.description %}
+        <article class="artist">
+          <h2>{{ artist.company_name }}</h2>
+          <div class="featured-image">
+            <img src="{{ STATIC_URL }}media/{{ artist.image }}">
+          </div>
+          <div class="description">
+            {{ artist.description|safe }}
+            <p>
+              <strong>{{ artist.phone }}</strong><br>
+              <a href="mailto:{{ artist.user.email }}">{{ artist.user.email }}</a><br>
+              <a href="{{ artist.fullurl }}">{{ artist.website }}</a>
+          </div>
+        </article>
+        {% endif %}
+      {% endfor %}
+    </section>
+  </div>
+
+{% endblock %} <!-- maincontent -->

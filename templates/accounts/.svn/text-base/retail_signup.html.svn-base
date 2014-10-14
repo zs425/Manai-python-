@@ -1,0 +1,48 @@
+{% extends "accounts/account_form.html" %}
+
+{% block main %}
+<div class="half">
+  <div class="whitebox">
+    <p><strong>If you run one of the following businesses or organizations, you might want to <a href="{% url wholesale_signup %}">sign up as a wholesale customer instead.</a></strong></p>
+    <p>
+      <ul>
+        <li>Retail Trader</li>
+        <li>E-Commerce Shop</li>
+        <li>Entrepreneur</li>
+        <li>Mumpreneur</li>
+        <li>Event planner</li>
+        <li>Charity</li>
+        <li>School</li>
+        <li>Beauty Salon</li>
+        <li>Face Painter</li>
+        <li>Make-up Artist</li>
+        <li>Nail Salon</li>
+        <li>Hairdresser</li>
+      </ul>
+    </p>
+
+    <p><a href="{% url wholesale_signup %}">Register now &raquo;</a></p>
+  </div>
+</div>
+
+<div class="half">
+{% if request.user.is_authenticated %}
+    <p>You're already logged in. If you'd like to create a new account, you'll need to log out first.</p>
+{% else %}
+  {% if form.errors %}
+  <div class="error-summary">
+    <p>Please correct the problems with the following fields:</p>
+    <ul>
+      {% for error in form.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {{ block.super }}
+  {% if settings.ACCOUNTS_VERIFICATION_REQUIRED %}
+  <p>After signing up, you'll receive an email with a link you need to click, in order to activate your account.</p>
+  {% endif %}
+{% endif %}
+</div>
+{% endblock %}
